@@ -1,0 +1,26 @@
+.user-main-container{
+    display: flex;
+    flex-direction: row;
+    
+}
+.user-main-content{
+margin-left: 40px;
+margin-top: 20px;
+}
+
+.buscar{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.add-user{
+    background-color: #031C30;
+    color: #fff;
+    padding: 12px;
+    height: 40px;
+    border-radius: 10px;
+    border-style: none;
+    width: 150px;
+}

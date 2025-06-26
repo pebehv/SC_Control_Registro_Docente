@@ -1,0 +1,33 @@
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Empresa</th>
+        <th>Tipo Irregularidad</th>
+        <th>Nro Investigadores</th>
+        <th>Tipo Proyecto</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entidad of getEntidadesPaginaActual()">
+        <td>{{ entidad.id }}</td>
+        <td>{{ entidad.empresas }}</td>
+        <td>{{ entidad.tipo_irregularidad }}</td>
+        <td>{{ entidad.investigadores ? entidad.investigadores.split(',').length : 0 }}</td>
+        <td>{{ entidad.tipo_proyecto }}</td>
+        <td>
+          <button class="edit" (click)="editarEntidad(entidad)">✏️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <button  class="arrow" (click)="previousPage()" [disabled]="currentPage === 1">⬅️</button>
+    <span>Página {{ currentPage }} de {{ totalPages }}</span>
+    <button class="arrow" (click)="nextPage()" [disabled]="currentPage === totalPages">➡️</button>
+  </div>
+  
+</div>

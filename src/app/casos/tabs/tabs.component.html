@@ -1,0 +1,11 @@
+<nav class="tabs">
+    <!--button class="tab active" (click)="changeTab(0)" routerLink="/casos/addcaso">Caso</button-->
+    <button class="tab " (click)="changeTab(0)" 
+    [class.active]="activeTabId === tabs.caso">Caso</button>
+    <button class="tab" (click)="changeTab(1)"
+    [class.active]="activeTabId === tabs.avance">Registrar Avances</button>
+    <button class="tab" (click)="changeTab(2)"
+    [class.active]="activeTabId === tabs.cerrar">Cerrar Caso</button>
+    <button class="tab" (click)="changeTab(3)" *ngIf="rol == 1"
+    [class.active]="activeTabId === tabs.reabrir">Reabrir Caso</button>
+  </nav>

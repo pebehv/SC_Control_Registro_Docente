@@ -1,0 +1,17 @@
+<div class="case-main-container">
+
+    
+    <div class="case-main-content">
+    
+        <div class="entidad-main-header">
+            <button class="back-button" (click)="onGoBack()">atras</button>
+            <h1>Entidades</h1>
+            
+        </div>
+            <app-tab-entidades></app-tab-entidades>
+            <app-form-entidad [entidadSelected]="entidadSelected" (goBack)="hideAddEntidadForm()"></app-form-entidad>
+            
+    </div>
+    
+    
+</div>

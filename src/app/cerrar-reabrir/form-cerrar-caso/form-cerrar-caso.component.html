@@ -1,0 +1,33 @@
+
+<div class="case-form-container">
+
+    <form [formGroup]="caseForm" (ngSubmit)="onSubmit()" >
+    <!--form [formGroup]="caseForm" (ngSubmit)="onSubmit()" *ngIf="!showRegistrarAvances"-->
+      <div class="form-grid">
+        <!-- Column 1 -->
+        <div class="form-column">
+            <div class="form-group">
+                <label for="observacion">Observaciòn</label>
+                <input id="observacion" type="text" formControlName="observacion">
+              </div>
+    
+              <div class="form-group">
+                <label for="conclusion">Conclusiòn</label>
+                <input id="conclusion" type="text" formControlName="conclusion">
+              </div>
+    
+              <div class="form-group">
+                <label for="recomendacion">Recomendaciòn</label>
+                <input id="recomendacion" type="text" formControlName="recomendacion">
+              </div>
+            </div>
+
+
+    </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-primary">Guardar</button>
+        <button type="button" class="btn-secondary" (click)="onGoBack()">Cancelar</button>
+      </div>
+    </form>
+  </div>

@@ -1,0 +1,85 @@
+<div class="entidad-form-container">
+
+    <form [formGroup]="entidadForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <!-- Column 1 -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="ID">ID</label>
+            <input id="id" type="text" 
+            name="id"
+            formControlName="id">
+            </div>
+          
+
+          <div class="form-group">
+            <label for="procesos_corregidos">Procesos Corregidos</label>
+            <input id="procesos_corregidos" type="text" formControlName="procesos_corregidos">
+          </div>
+
+          <div class="form-group">
+            <label for="tipo_irregularidad">Tipo de Irregularidad</label>
+            <input type="text" id="tipo_irregularidad" formControlName="tipo_irregularidad">
+            <option value="">
+            
+            </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="form-column">
+        <div class="form-group">
+            <label for="tipo_brecha">Tipo de Brecha</label>
+            <input type="text" id="tipo_brecha" formControlName="tipo_brecha">
+            
+        </div>
+          <div class="form-group">
+            <label for="procesos_realizados"> Procesos Realizados</label>
+            <input id="procesos_realizados" type="text" formControlName="procesos_realizados">
+          </div>
+
+          <div class="form-group">
+            <label for="subtipo_irregularidad">Subtipo de Irregularidad</label>
+            <input id="subtipo_irregularidad" type="text" formControlName="subtipo_irregularidad">
+          </div>
+
+        </div>
+
+        <!-- Column 3 -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="tipo_proyecto">Tipo de Proyecto</label>
+            <input type="text" id="tipo_proyecto" formControlName="tipo_proyecto">
+          </div>
+
+          <div class="form-group">
+            <label for="subtipo_ficha">Subtipo de Ficha</label>
+            <input type="text" id="subtipo_ficha" formControlName="subtipo_ficha">
+          </div>
+
+          <div class="form-group">
+            <label for="procedencia_casos">Procedencia de casos</label>
+            <input id="procedencia_casos" type="text" formControlName="procedencia_casos">
+          </div>
+        </div>
+
+        
+      
+    </div>
+
+    <div class="form-group">
+        <label for="empresas">Empresa</label>
+        <input type="text" id="empresas" formControlName="empresas">
+        </div>
+        <div class="form-group">
+            <label for="investigadores">Investigadores</label>
+            <input type="text" id="investigadores" formControlName="investigadores">
+            </div>
+    
+      <div class="button-group">
+        <button type="submit" class="btn-primary">Guardar</button>
+        <button type="button" class="btn-secondary" (click)="onGoBack()">Cancelar</button>
+      </div>
+    
+    </form>
+
+</div>

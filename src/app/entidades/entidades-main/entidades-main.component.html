@@ -1,0 +1,42 @@
+
+<div class="case-main-container">
+
+    <app-sidenav></app-sidenav>
+    <div class="case-main-content">
+    
+        <div class="case-main-header" *ngIf="!showAddEntidad">
+            <h1>Entidades</h1>
+    
+            <div class="buscar">
+                <app-search></app-search>
+                 <!-- <app-search *ngIf="!showAddUser" (searchEvent)="onSearch($event)"></app-search>-->
+               <!-- <button class="add-user" (click)="showAddUserForm()" *ngIf="!showAddUser">-->
+                <button class="add-case" (click)="showAddEntidadForm()">
+                  Registrar Entidad
+                </button>
+              </div>
+            </div>
+
+              <app-table-entidades (onSelected)="onEntidadSelected($event)" *ngIf="!showAddEntidad"></app-table-entidades>
+              <div *ngIf="showAddEntidad" >
+                <app-add-entidad (goBack)="hideAddEntidadForm()" [entidadSelected]="entidadSelected"></app-add-entidad>
+              </div>
+              
+              <!-- Mostrar la tabla solo si showAddUser es false
+              <div *ngIf="!showAddCase">
+                <app-table-users 
+                (onSelected)="onUserSelected($event)"></app-table-users>
+              </div>
+              
+               Mostrar el formulario add-case solo si showAddUser es true 
+    
+              <div *ngIf="showAddCase" >
+                <app-add-Case (goBack)="hideAddUserForm()"
+                  [usuarioSelected]="usuarioSelected" 
+                ></app-add-user>
+              </div>
+            -->
+    
+    </div>
+    
+    </div>

@@ -1,0 +1,175 @@
+<div class="case-form-container">
+
+  
+  <form [formGroup]="caseForm"    (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <!-- Column 1 -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="nro_expediente">Nro de Expediente *</label>
+            <input 
+            type="text" 
+            id="nro_expediente"
+            name="nro_expediente" 
+            formControlName="nro_expediente"
+            required 
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="movil_afectado">Movil Afectado *</label>
+            <input 
+            id="movil_afectado" 
+            type="text" 
+            name="movil_afectado"
+            formControlName="movil_afectado"
+            required
+            >
+            
+          </div>
+
+          <div class="form-group">
+            <label for="subtipo_irregularidad">Subtipo de Irregularidad</label>
+            <select 
+            id="subtipo_irregularidad" formControlName="subtipo_irregularidad"
+            name="subtipo_irregularidad">
+              <option value="">Seleccionar</option>
+              <option *ngFor="let par of entidades" [value]="par.id">
+                {{ par.subtipo_irregularidad }}</option>
+              <!-- Add options here -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="duracion">Duración (Días)</label>
+            <input id="duracion" type="number" 
+            name="duracion"
+            formControlName="duracion">
+          </div>
+
+          <div class="form-group">
+            <label for="deteccion">Detección / Procedencia del Caso</label>
+            <input id="deteccion" type="text" 
+            name="deteccion"
+            formControlName="deteccion">
+          </div>
+
+          <div class="form-group">
+            <label for="conclusiones">Conclusiones</label>
+            <input id="conclusiones" type="text" 
+            name="conclusiones"
+            formControlName="conclusiones">
+          </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="fecha_inicio">Fecha Inicio *</label>
+            <input id="fecha_inicio" type="text" 
+            name="fecha_inicio"
+            formControlName="fecha_inicio">
+          </div>
+
+          <div class="form-group">
+            <label for="tipo_caso">Tipo de Caso *</label>
+            <input id="tipo_caso" 
+            type="text" 
+            name="tipo_caso"
+            formControlName="tipo_caso">
+          </div>
+
+          <div class="form-group">
+            <label for="objetivo">Objetivo / Agraviado</label>
+            <input id="objetivo" type="text" 
+            name="objetivo"
+            formControlName="objetivo">
+          </div>
+
+          <div class="form-group">
+            <label for="modus_operandi">Descripción Modus Operandi</label>
+            <input id="modus_operandi" type="text" 
+            name="modus_operandi"
+            formControlName="modus_operandi">
+           
+          </div>
+
+          <div class="form-group">
+            <label for="diagnostico">Diagnostico</label>
+            <input id="diagnostico" type="text"
+            name="diagnostico"
+            formControlName="diagnostico">
+          </div>
+
+          <div class="form-group">
+            <label for="observaciones">Observaciones</label>
+            <input id="observaciones" type="text" 
+            name="observaciones"
+            formControlName="observaciones">
+          </div>
+        </div>
+
+        <!-- Column 3 -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="investigador">Investigador</label>
+            <select id="investigador" formControlName="investigador"
+            name="investigador" 
+             
+            [(ngModel)]="casoSelected.investigador"
+            >
+              <option >Seleccionar {{casoSelected.investigador}} </option>
+              <option *ngFor="let par of usuarios" [value]="par.id">{{ par.nombre }}</option>
+              <!-- Add options here -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tipo_irregularidad">Tipo de Irregularidad</label>
+            <select id="tipo_irregularidad" formControlName="tipo_irregularidad"
+            name="tipo_irregularidad"
+            >
+              <option value="">Seleccionar</option>
+              <option *ngFor="let par of entidades" [value]="par.id">
+                {{ par.tipo_irregularidad }}</option>
+              
+              <!-- Add options here -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="incidencia">Incidencia</label>
+            <input id="incidencia" type="text" 
+            name="incidencia"
+            formControlName="incidencia">
+          </div>
+
+          <div class="form-group">
+            <label for="area_apoyo">Área Apoyo a Resolver</label>
+            <input id="area_apoyo" type="text" 
+            name="area_apoyo"
+            formControlName="area_apoyo">
+          </div>
+
+          <div class="form-group">
+            <label for="estado">Estado</label>
+            <input id="estado" type="text" 
+            name="estado"
+            formControlName="estado">
+          </div>
+
+          <div class="form-group">
+            <label for="soporte">Soporte</label>
+            <input id="soporte" type="text" 
+            name="soporte"
+            formControlName="soporte">
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group-case">
+        <button type="submit" class="btn-primary">Guardar</button>
+        <button type="button" class="btn-secondary" (click)="onGoBack()">Cancelar</button>
+      </div>
+    </form>
+  </div>

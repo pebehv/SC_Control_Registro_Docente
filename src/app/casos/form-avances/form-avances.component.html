@@ -1,0 +1,33 @@
+avances
+<div class="case-form-container">
+
+    <form [formGroup]="caseForm" (ngSubmit)="onSubmit()" >
+    <!--form [formGroup]="caseForm" (ngSubmit)="onSubmit()" *ngIf="!showRegistrarAvances"-->
+      <div class="form-grid">
+        <!-- Column 1 -->
+        <div class="form-column">
+            <div class="form-group">
+                <label for="actividades">Actividades Realizadas</label>
+                <input id="actividades" type="text" formControlName="actividades">
+              </div>
+    
+              <div class="form-group">
+                <label for="personas">Personas involucradas</label>
+                <input id="personas" type="text" formControlName="personas">
+              </div>
+    
+              <div class="form-group">
+                <label for="monto_expuesto">Monto Expuesto</label>
+                <input id="monto_expuesto" type="text" formControlName="monto_expuesto">
+              </div>
+            </div>
+
+
+    </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-primary">Guardar</button>
+        <button type="button" class="btn-secondary" (click)="onGoBack()">Cancelar</button>
+      </div>
+    </form>
+  </div>

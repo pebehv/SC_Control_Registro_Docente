@@ -1,0 +1,20 @@
+<div class="table-container">
+  <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tipo archivo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let archivo of archivos">
+          <td>{{ archivo.id_archivo }}</td>
+          <td>{{ archivo.tipo }}</td>
+          <td>
+            <button class="back-button" (click)="verArchivo(archivo)">👁️ Ver</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>

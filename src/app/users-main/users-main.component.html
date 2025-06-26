@@ -1,0 +1,36 @@
+
+
+
+<div class="user-main-container">
+
+<app-sidenav></app-sidenav>
+<div class="case-main-content">
+
+    <div class="user-main-header">
+        <h1>Usuarios</h1>
+
+        <div class="buscar" *ngIf="!showAddUser">
+            <app-search (searchEvent)="onSearch($event)"></app-search>
+            <button class="add-user" (click)="showAddUserForm()" >
+              Agregar usuario
+            </button>
+          </div>
+    </div>
+          
+          <!-- Mostrar la tabla solo si showAddUser es false -->
+          <div *ngIf="!showAddUser">
+            <app-table-users 
+            (onSelected)="onUserSelected($event)"></app-table-users>
+          </div>
+          
+          <!-- Mostrar el formulario add-user solo si showAddUser es true -->
+
+          <div *ngIf="showAddUser" >
+            <app-add-user (goBack)="hideAddUserForm()"
+              [usuarioSelected]="usuarioSelected" 
+            ></app-add-user>
+          </div>
+
+</div>
+
+</div>

@@ -1,0 +1,78 @@
+<div class="table-container" *ngIf="rol == 1">
+    <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th *ngIf="rol !== 1">Nro Caso</th>
+            <th>Caso</th>
+            <th>Estado</th>
+            <th *ngIf="rol !== 1">Fecha Inicio</th>
+            <th *ngIf="rol === 1">Investigador</th>
+            <th *ngIf="rol === 1">Cedula</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+          <tr *ngFor="let cs of caso">
+            <td >{{ cs.id }}</td>
+            <td>{{ cs.nro_expediente }}</td>
+            <td>{{ cs.estado }}</td>
+            <td>{{ cs.nombre }}</td>
+            <td>{{ cs.cedula }}</td>
+            
+            <td>
+              <button class="edit" (click)="editarCaso(cs)">✏️</button>
+              <button class="alarma" (click)="editarCaso(cs)">⏰</button>
+            </td>
+            
+            
+          </tr>
+        </tbody>
+      </table>
+      
+      <!--div class="pagination">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+      </div-->
+
+</div>
+<div class="table-container" *ngIf="rol != 1">
+    <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th >Nro Caso</th>
+            <th>Caso</th>
+            <th>Estado</th>
+            <th >Fecha Inicio</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+          <tr *ngFor="let cs of caso">
+            <td >{{ cs.id }}</td>
+            <td >{{ cs.id }}</td>
+            <td>{{ cs.nro_expediente }}</td>
+            <td>{{ cs.estado }}</td>
+            <td>{{ cs.fecha_inicio }}</td>
+            
+            <td>
+              <button class="edit" (click)="editarCaso(cs)">✏️</button>
+              
+            </td>
+            
+            
+          </tr>
+        </tbody>
+      </table>
+      
+      <!--div class="pagination">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+      </div-->
+
+</div>

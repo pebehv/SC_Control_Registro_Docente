@@ -1,0 +1,46 @@
+
+
+
+
+<div class="case-main-container">
+
+    <app-sidenav></app-sidenav>
+    <div class="case-main-content">
+    
+        <div class="case-main-header" *ngIf="!showAddCase">
+            <h1>Casos de Investigación</h1>
+    
+            <div class="buscar" >
+                <app-search></app-search>
+                 <!-- <app-search *ngIf="!showAddUser" (searchEvent)="onSearch($event)"></app-search>-->
+               <!-- <button class="add-user" (click)="showAddUserForm()" *ngIf="!showAddUser">-->
+                <button class="add-case" (click)="showAddCaseForm()">
+                  Registrar Caso
+                </button>
+               
+              </div>
+            </div>
+
+              
+              
+             
+              <div *ngIf="!showAddCase">
+                <app-table-casos (onSelected)="onCaseSelected($event) "></app-table-casos>
+              </div>
+              <div *ngIf="showAddCase" >
+                <app-add-caso (goBack)="hideAddCaseForm()" [casoSelected]="casoSelected"></app-add-caso>
+              </div>
+             
+                <!--
+              <div *ngIf="showAddCase" >
+                <app-form-case (goBack)="hideAddUserForm()"
+                  [usuarioSelected]="usuarioSelected" 
+                ></app-form-case>
+
+                [otroComponente]="este componente
+              </div-->
+            
+    
+    </div>
+    
+    </div>

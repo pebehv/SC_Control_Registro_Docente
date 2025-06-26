@@ -1,0 +1,38 @@
+
+<div class="archivo-main-container">
+
+    <app-sidenav></app-sidenav>
+    <div class="case-main-content">
+    
+        <div class="case-main-header">
+            <h1>Archivos</h1>
+    
+            <div class="registrar-archivo" *ngIf="!showAddArchivo">
+                
+                 <!--
+              <app-search></app-search>
+               <app-search *ngIf="!showAddUser" (searchEvent)="onSearch($event)"></app-search>-->
+               <!-- <button class="add-user" (click)="showAddUserForm()" *ngIf="!showAddUser">-->
+
+
+                <button class="add-archivo" (click)="showAddArchivoForm()" *ngIf="!showAddArchivo" >
+                  Registrar archivo
+                </button>
+              </div>
+            </div>
+              
+            
+              <div *ngIf="!showAddArchivo">
+                <app-table-archivo (onSelected)="onArchivoSelected($event) "></app-table-archivo>
+              </div>
+              
+              
+              <div *ngIf="showAddArchivo" >
+                <app-add-archivo (goBack)="hideAddArchivoForm()"
+                 ></app-add-archivo>
+              </div>
+          
+    
+    </div>
+    
+    </div>

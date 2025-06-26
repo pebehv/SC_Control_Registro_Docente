@@ -1,0 +1,33 @@
+<div class="case-main-container">
+
+    <!--app-sidenav></app-sidenav-->
+    <div class="case-main-content">
+    
+        <div class="cases-main-header">
+            <button class="back-button" (click)="onGoBack()">atrás</button>
+            <h1>Casos de Investigación</h1>
+        </div>
+            <app-tabs (onSelected)="onSelected($event) "
+            [casoSelected]="casoSelected"></app-tabs>
+            <app-form-case *ngIf="activeTabId == 0" [activeTabId]="activeTabId"
+             [casoSelected]="casoSelected" (goBack)="hideAddUserForm()"  ></app-form-case>
+            
+              
+             <app-form-avances *ngIf="activeTabId == 1" (goBack)="hideAddUserForm()"
+             [casoSelected]="casoSelected"
+             ></app-form-avances>
+             
+             <app-form-cerrar-caso *ngIf="activeTabId == 2" (goBack)="hideAddUserForm()"
+             [casoSelected]="casoSelected"
+             ></app-form-cerrar-caso>
+             
+             <app-form-case *ngIf="activeTabId == 3" [activeTabId]="activeTabId"
+              [casoSelected]="casoSelected" (goBack)="hideAddUserForm()"  ></app-form-case>
+             
+               
+              
+           
+    
+    </div>
+    
+    </div>
