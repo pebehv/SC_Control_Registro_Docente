@@ -124,4 +124,8 @@ Este proyecto fue desarrollado con un objetivo académico, como parte de la asig
 
 
 
+## Nota  npm run electron-build
+
+
+
 

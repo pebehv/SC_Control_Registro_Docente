@@ -21,8 +21,8 @@ app.on('ready', () => {
     //mainWindow.setMenu(null); // Esta linea es para deshabilitar el inspeccionar , osea , la consola y eso de la web
 
     // Inicializar base de datos
-   const dbPath = path.join(__dirname, 'database.db');
-    //const dbPath = path.join(app.getPath('userData'), 'database.db');
+   //const dbPath = path.join(__dirname, 'database.db');
+    const dbPath = path.join(app.getPath('userData'), 'database.db');
     db = new sqlite3.Database(dbPath, (err) => {
         if (err) {
             console.error(err.message);

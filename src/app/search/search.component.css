@@ -13,6 +13,6 @@
   
   .search-input:focus {
     outline: none;
-    border-color: #031C30;
+    border-color: #202f5b;
     box-shadow: 0 0 5px rgba(17, 121, 219, 0.5);
   }
