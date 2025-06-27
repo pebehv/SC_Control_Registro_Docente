@@ -34,15 +34,6 @@ export class LoginComponent {
       // Add your login logic here
       this.loginError = false; 
       
-     /* let valid = this.usuarioBdService.login(this.loginForm.value['email'], this.loginForm.value['password'])
-      if(valid){
-        console.log('Login correcto');
-        // Redireccionar 
-      }
-      else{
-        console.log('Login incorrecto');
-      }
-      */
       this.usuarioBdService.login(this.loginForm.value['email'], this.loginForm.value['password'])
       .subscribe((value:boolean) => {
         if(value){

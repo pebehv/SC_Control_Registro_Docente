@@ -83,6 +83,7 @@ export class UsuarioBdService {
   }
 
   public login(user: string, pass: string): Observable<boolean> {
+    console.log('[login]')
     if (user) {
       (window as any).myAPI.login(user, pass);
 
