@@ -1,3 +1,5 @@
+
+
 * {
     margin: 0;
 }
@@ -10,11 +12,11 @@ background-color: #F1EFEF; }
 /* Estilos generales de la tabla */
 
 .table-container{
-    width: 800px;
+    width: 100%;
     padding: 20px;
     background-color: #fff;
     border-radius: 10PX;
-    height: 500px;
+    height: 500100%px;
 }
 
 table {
@@ -36,9 +38,10 @@ table {
   
   /* Estilos para las celdas del cuerpo */
   td {
-    padding: 15px 15px;
+    padding: 8px;
     border-bottom: 1px solid #ddd;
     color: #333; /* Color de texto oscuro */
+    white-space: nowrap;
   }
   
   /* Estilos para las filas alternas */
@@ -143,7 +146,7 @@ table {
   margin-top: -10px;
 }
 .user-main-content, .case-main-content{
-margin-left: 40px;
+margin-left: 22%;
 margin-top: 20px;
 }
 
@@ -155,7 +158,7 @@ margin-top: 20px;
 .buscar{
     margin-top: 30px;
     display: flex;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     
 }
 
@@ -167,6 +170,7 @@ margin-top: 20px;
     border-radius: 10px;
     border-style: none;
     width: 150px;
+    margin-left: 1%;
     cursor: pointer;
 }
 .add-archivo{

@@ -18,6 +18,7 @@ export class UsuarioBdService {
     console.log("insertar usuario");
     (window as any).myAPI.insertUser(nombre,apellido,ci, email,user, password, rol);
   }
+  
 
   public actualizarUsuario(id:number, nombre: string, apellido: string,ci: number, email: string,user:string, password:string, rol:number) {
     // Llama a la API expuesta

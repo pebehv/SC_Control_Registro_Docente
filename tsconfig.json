@@ -24,6 +24,11 @@
       "dom"
     ]
   },
+   "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",  // Asegúrate de incluir archivos .d.ts dentro de src
+    "types/**/*.d.ts" // O si los pones en una carpeta 'types' separada
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

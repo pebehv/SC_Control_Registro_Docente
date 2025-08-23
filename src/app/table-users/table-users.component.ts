@@ -12,7 +12,8 @@ import { IUser } from '../models/user.model';
 })
 export class TableUsersComponent {
   @Input() searchTerm: string = ''; // Recibe el término de búsqueda
-  usuarios: IUser[] = []
+  usuarios: IUser[] = [];
+  totalPages: number = 1;
   usuarioSelected: IUser = new IUser;
   @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
 
@@ -47,9 +48,11 @@ export class TableUsersComponent {
     this.usuarioBdService.consultarUsuarios((rows) => {
       this.usuarios = rows;
       console.log(this.usuarios);
+      this.calcularTotalPaginas();
       this.cdr.detectChanges();
     });
   }
+  
 
   onRowSelect(event: any): void {
     console.log("onRowSelect", event)
@@ -94,6 +97,9 @@ export class TableUsersComponent {
     }
   }*/
 
+  calcularTotalPaginas() {
+    this.totalPages = Math.ceil(this.usuarios.length / this.itemsPerPage);
+  }
   editarUsuario(usuario: any) {
     //this.usuarios = this.usuarios.filter(u => u.cedula !== usuario.cedula);
     console.log("Editar user");
@@ -103,6 +109,22 @@ export class TableUsersComponent {
     // Función para agregar un nuevo usuario
     agregarUsuario(nuevoUsuario: any) {
       this.usuarios.push(nuevoUsuario);
+  }
+
+  // Método para cambiar a la página anterior
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
     }
+    this.cdr.detectChanges();
+  }
+
+  // Método para cambiar a la página siguiente
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+    this.cdr.detectChanges();
+  }
 
 }

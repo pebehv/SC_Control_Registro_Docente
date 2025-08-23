@@ -1,0 +1,49 @@
+<div class="table-container">
+    <table>
+        <thead>
+          <tr>
+            <th>CI</th>
+            <th>Docente</th>
+            <th>Telefono</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Edad</th>
+            <th>Sexo</th>
+            <th>Correo</th>
+            <th>Cargo de Responsabilidad</th>
+            <th>PNF</th>
+            <th>Carga Académica Nominal</th>
+            <th>Trayecto</th>
+            <th>Sede</th>
+            <th>Profesion-Especialidad</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of getEntidadesPaginaActual()">
+            <td >{{ x.ci }}</td>
+            <td>{{ x.nombre }}</td>
+            <td>{{ x.tlf }}</td>
+            <td>{{ x.fechaNac }}</td>
+            <td></td>
+            <td>{{ x.sexo }}</td>
+            <td>{{ x.email }}</td>
+            <td></td>
+            <td>{{ x.pnf }}</td>
+            <td>{{ x.carga_acad }}</td>
+            <td>{{ x.trayecto }}</td>
+            <td>{{ x.sede }}</td>
+            <td>{{ x.profesion  }}</td>
+            <td>{{ x.estado  }}</td>
+            
+            <td><button class="edit" (click)="editarDocente(x)">✏️</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+      </div>
+</div>
