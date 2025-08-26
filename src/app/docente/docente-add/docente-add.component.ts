@@ -16,14 +16,18 @@ export class DocenteAddComponent {
   @Output() goBack = new EventEmitter<void>(); // Evento para volver atrás
   @Output() userAdded = new EventEmitter<any>(); // Evento para emitir el nuevo usuario
   @Input()docenteSelected : IDocente = new IDocente();
-  
+  loading: boolean = false;
   valForm!: FormGroup;
   dropdownList: any[]  =  [] ; 
   selectedItems : any[] =  [] ; 
   dropdownSettings:  IDropdownSettings =  {} ; 
   pnf: any[] = []
   pnfSelected : any[] =  [] ; 
-  img: any
+  img: any = null
+  imageFile: any = null
+  img_id: number = 0;
+  img_bool: boolean = false;
+  tipo_mime: string = '';
   
     constructor(private fb: FormBuilder,
                 private docenteService: DocenteService,
@@ -59,7 +63,7 @@ export class DocenteAddComponent {
       }else{
         this.consultarImage(this.docenteSelected.docente)
       }
-      console.log("AddUserComponent", this.docenteSelected)
+      //console.log("AddUserComponent", this.docenteSelected)
     this.setForm(); // Carga los valores del usuario seleccionado en el formulario
     this.getPNF();
     }
@@ -91,7 +95,7 @@ export class DocenteAddComponent {
     setForm(): void {
       this.valForm.reset({
         id: this.docenteSelected.id ,
-        docente: this.docenteSelected.docente ,
+        docente: this.docenteSelected.docente , // id de persona 
         apellido: 'no',
         nombre: this.docenteSelected.nombre,
         ci: this.docenteSelected.ci,
@@ -118,11 +122,12 @@ export class DocenteAddComponent {
     
   // Función para manejar el envío del formulario
   onSubmit() {
+    this.loading = true;
     console.log("****onSubmit****",this.valForm)
     if(this.valForm.value['id'] != 0){
       console.log("actualizar********",this.valForm)
 
-      this.docenteService.insertarPersona(
+      this.docenteService.actualizarPersona(
         this.valForm.value['docente'],
         this.valForm.value['nombre'],
         'no',
@@ -132,21 +137,58 @@ export class DocenteAddComponent {
         this.valForm.value['fechaNac'],
         this.valForm.value['sexo'],
      
-      ).subscribe((value: number)=>{
-        console.log('el subscribe actualizar a la persona ', value)
-        this.insertarDocente(1, this.valForm.value['id'], 
+      ).subscribe({
+      next: (response) => {
+        // El registro fue guardado exitosamente
+        //this.mensaje = `¡Docente guardado con ID: ${response}!`;
+        console.log('persona actualizado con ID:', response);
+        
+        this.insertarDocente(1,this.docenteSelected.docente, 
           this.valForm.value['carga_acad'],
           this.valForm.value['trayecto'],
           this.valForm.value['sede'],
           this.valForm.value['profesion'],
-          this.valForm.value['estado'] )
-          
-        //this.onGoBack();
-        //this.cdr.detectChanges();   
-      })
-    }else{
-
+          this.valForm.value['estado']  )   
+        
+      },
+      error: (err) => {
+        // Hubo un error al guardar el registro
+        //this.mensaje = `Error al guardar: ${err}`;
+        console.error('Error al guardar:', err);
+      }
+    });
+    }else{ //insertar persona nueva 
+      console.log('Esto es un insertar persona nueva ')
       this.docenteService.insertarPersona(
+        0, 
+        this.valForm.value['nombre'],
+        'no',
+        this.valForm.value['ci'],
+        this.valForm.value['email'],
+        this.valForm.value['tlf'],
+        this.valForm.value['fechaNac'],
+        this.valForm.value['sexo'],
+      ).subscribe({
+      next: (response) => {
+        // El registro fue guardado exitosamente
+        //this.mensaje = `¡Docente guardado con ID: ${response}!`;
+        console.log('persona guardado con ID:', response);
+        
+        this.insertarDocente(0,response.idd, 
+          this.valForm.value['carga_acad'],
+          this.valForm.value['trayecto'],
+          this.valForm.value['sede'],
+          this.valForm.value['profesion'],
+          this.valForm.value['estado']  )     
+        
+      },
+      error: (err) => {
+        // Hubo un error al guardar el registro
+        //this.mensaje = `Error al guardar: ${err}`;
+        console.error('Error al guardar:', err);
+      }
+    });
+      /*this.docenteService.insertarPersona(
         0, 
         this.valForm.value['nombre'],
         'no',
@@ -158,6 +200,7 @@ export class DocenteAddComponent {
      
       ).subscribe((value: number)=>{
         console.log('el subscribe inserte a la persona ', value)
+
         this.insertarDocente(0,value, 
           this.valForm.value['carga_acad'],
           this.valForm.value['trayecto'],
@@ -165,23 +208,44 @@ export class DocenteAddComponent {
           this.valForm.value['profesion'],
           this.valForm.value['estado']  )        
       })
-      console.log('aquiiii')
+      */
     }
   }
 
-  insertarDocente(st: number, id:number,  
+  insertarDocente(st: number, docente:number,  
     carga_acad: number,
     trayecto: string,
     sede:string,
     profesion:string,
     estado:boolean){
-    this.docenteService.insertarDocente(
-      st, id, carga_acad,trayecto,sede,profesion,estado
+      // Llama al servicio e inserta los datos
+    this.docenteService.insertarDocente(st, docente, carga_acad,trayecto,sede,profesion,estado).subscribe({
+      next: (response) => {
+        // El registro fue guardado exitosamente
+        console.log('Docente guardado con ID:', response);
+        if(this.img_bool){
+          this.insertarImg(docente)
+        }
+  
+        this.onGoBack();
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        // Hubo un error al guardar el registro
+        console.error('Error al guardar:', err);
+      }
+    });
+    /*this.docenteService.insertarDocente(
+      st, docente, carga_acad,trayecto,sede,profesion,estado
     ).subscribe((valu:any)=>{
+      console.log('se ingreso el docente insertarDocente ' , valu )
+      /*if(this.img_bool){
+        this.insertarImg(docente)
+      }*
 
       this.onGoBack();
       this.cdr.detectChanges();
-    })
+    })*/
 
   }
   
@@ -204,40 +268,58 @@ export class DocenteAddComponent {
   }
   sendImage($event: any){
     //console.log("sen img", this.valForm.value)
-    let imageFile: any = null;
+    //let imageFile: any = null;
+    this.img_bool = true;
     const reader = new FileReader();
     if ($event.target.files && $event.target.files.length > 0) {
       const file = $event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        imageFile = {
+        this.imageFile = {
           filename: file.name,
           filetype: file.type,
           value: encodeURIComponent((reader.result as string).split(',')[1])
         };
       //console.log('image', imageFile)
-      this.docenteService.insertarImg(this.valForm.value['tipo_mime'], this.valForm.value['docente'], imageFile).
-      subscribe((value:any)=>{
-        console.log('registro de imagen exitoso')
-      })
-      this.getImages(imageFile)
+      
+      //this.getImages(imageFile)
+      this.getImages('', 'image/png', this.imageFile.value)
       }
     }
+  }
+  
+  insertarImg(docente:number){
+    
+
+    this.docenteService.insertarImg(this.img_id, this.tipo_mime, docente, this.imageFile).subscribe({
+      next: (response) => {
+        // El registro fue guardado exitosamente
+        console.log('registro de imagen exitoso')
+      },
+      error: (err) => {
+        // Hubo un error al guardar el registro
+        console.error('Error al guardar imagen:', err);
+      }
+    });
   }
   consultarImage(docente: number){
     this.docenteService.consultarImage(docente).
       subscribe((value:any)=>{
-        console.log('consultarImage', value)
-        this.getImages2(value.nombre_imagen, value.tipo_mime, value.imagen_data)
+        if(value){
+          this.img_id = value.id;
+         //console.log('consultarImage', value)
+         this.getImages(value.nombre_imagen, value.tipo_mime, value.imagen_data);
+       }
       })
 
   }
 
-  getImages2(nombre_imagen: string, tipo_mime: string, imagen_data:string) {
+  getImages(nombre_imagen: string, tipo_mime: string, imagen_data:string) {
     const decodedString = decodeURIComponent(imagen_data);
     const mimeType = tipo_mime; // You'd need to know the original MIME type
     const dataUrl = `data:${mimeType};base64,${imagen_data}`;
     this.img = dataUrl
+    this.tipo_mime =  mimeType;
     this.cdr.detectChanges()
     /*return this.img.map((attch: any) => {
       return {
@@ -248,7 +330,7 @@ export class DocenteAddComponent {
       };
     });*/
   }
-  getImages(imageFile:any) {
+  /*getImages(imageFile:any) {
     const decodedString = decodeURIComponent(imageFile.value);
     const mimeType = 'image/png'; // You'd need to know the original MIME type
     const dataUrl = `data:${mimeType};base64,${imageFile.value}`;
@@ -261,6 +343,6 @@ export class DocenteAddComponent {
         thumb: attch.url,
         downloadUrl: attch.url
       };
-    });*/
-  }
+    });
+  */
 }

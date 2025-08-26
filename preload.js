@@ -25,9 +25,23 @@ contextBridge.exposeInMainWorld('docenteAPI', {
         profesion,estado) => 
         ipcRenderer.send('insertar-docente', docente, carga_acad, trayecto, 
         profesion,estado),
+        // Método para escuchar la respuesta del backend
+    // 'on' es el prefijo para los listeners de eventos
+    onDocenteInsertado: (callback) => {
+        // Usa .removeAllListeners() para evitar la acumulación de listeners
+        ipcRenderer.removeAllListeners('docente-insertado');
+        ipcRenderer.on('docente-insertado', (event, response) => callback(response));
+    },
     insertPersona: (nombre, apellido, ci, email, tlf, fechaNac, sexo) => 
         ipcRenderer.send('insertar-persona', nombre, apellido, ci, email, tlf, fechaNac, sexo),
-   /* eliminarUsuario: (id) => ipcRenderer.send('eliminar-usuario', id),
+      // Método para escuchar la respuesta del backend
+    
+    onPersonaInsertado: (callback) => {
+        // Usa .removeAllListeners() para evitar la acumulación de listeners
+        ipcRenderer.removeAllListeners('persona-insertado');
+        ipcRenderer.on('persona-insertado', (event, response) => callback(response));
+    },
+    /* eliminarUsuario: (id) => ipcRenderer.send('eliminar-usuario', id),
     buscarUser: (user) => ipcRenderer.send('buscar-user', user),
     login: (user, pass) => ipcRenderer.send('login', user, pass),
     obtenerRol: (user) => ipcRenderer.send('obtener-rol', user),*/
@@ -81,6 +95,11 @@ contextBridge.exposeInMainWorld('img_api', {
         ipcRenderer.send('insert-image',  value_,filetype, filename, docente ),
     getImages: () => ipcRenderer.invoke('get-images'),
     getImageData: (docente) => ipcRenderer.invoke('get-image-data', docente),
+    onImagenInsertado: (callback) => {
+        // Usa .removeAllListeners() para evitar la acumulación de listeners
+        ipcRenderer.removeAllListeners('imagen-insertado');
+        ipcRenderer.on('imagen-insertado', (event, response) => callback(response));
+    },
     
     ipcRenderer: {
         send: (channel, data) => ipcRenderer.send(channel, data),

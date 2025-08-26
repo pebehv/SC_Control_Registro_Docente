@@ -257,7 +257,7 @@ ipcMain.on('actualizar-persona', (event, {
                 event.reply('persona-actualizada', { error: err.message });
             } else {
                 console.log('persona actualizada con éxito:', this.changes);
-                event.reply('persona-actualizada', { success: true, id });
+                event.reply('persona-actualizada', { idd: true, id });
             }
         }
     );
@@ -344,8 +344,8 @@ ipcMain.on('actualizar-image', (event, { id, value,filetype, filename, docente
         imagen_data = ?,
         tipo_mime = ?,
         nombre_imagen = ?
-        WHERE docente = ?`,
-        [  value,filetype, filename, docente], function(err) {
+        WHERE id = ?`,
+        [  value,filetype, filename, id], function(err) {
             if (err) {
                 console.error('Error al actualizar image:', err.message);
                 event.reply('image-actualizada', { error: err.message });
@@ -378,14 +378,14 @@ ipcMain.on('actualizar-docente', (event, {
      docente,  carga_acad, trayecto, 
         profesion,estado
 }) => {
-    console.log('Actualizando docente con ID:', docente);
+    console.log('Actualizando docente con ID:', docente, trayecto);
     db.run(`UPDATE docente SET
         
         carga_acad = ?,
         trayecto = ?,
         profesion = ?,
         estado = ?
-        WHERE id = ?`,
+        WHERE docente = ?`,
         [ carga_acad, trayecto, 
         profesion,estado,docente ], function(err) {
             if (err) {
