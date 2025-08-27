@@ -81,6 +81,9 @@ export class DocenteAddComponent {
           sexo: [null, []],
           pnf: [null, []],
           carga_acad: [null, []],
+          carga_resp: [null, []],
+          observ: [null, []],
+          //espec: [null, []],
           trayecto: [null, []],
           sede: [null, []],
           profesion: [null, []],
@@ -148,6 +151,8 @@ export class DocenteAddComponent {
           this.valForm.value['trayecto'],
           this.valForm.value['sede'],
           this.valForm.value['profesion'],
+          this.valForm.value['carga_resp'],
+          this.valForm.value['observ'],
           this.valForm.value['estado']  )   
         
       },
@@ -179,6 +184,8 @@ export class DocenteAddComponent {
           this.valForm.value['trayecto'],
           this.valForm.value['sede'],
           this.valForm.value['profesion'],
+          this.valForm.value['carga_resp'],
+          this.valForm.value['observ'],
           this.valForm.value['estado']  )     
         
       },
@@ -217,9 +224,11 @@ export class DocenteAddComponent {
     trayecto: string,
     sede:string,
     profesion:string,
+    carga_resp:string,
+    observ:string,
     estado:boolean){
       // Llama al servicio e inserta los datos
-    this.docenteService.insertarDocente(st, docente, carga_acad,trayecto,sede,profesion,estado).subscribe({
+    this.docenteService.insertarDocente(st, docente, carga_acad,trayecto,sede,profesion,carga_resp,observ,  estado).subscribe({
       next: (response) => {
         // El registro fue guardado exitosamente
         console.log('Docente guardado con ID:', response);

@@ -72,6 +72,8 @@ export class DocenteService {
     trayecto: string,
     sede:string,
     profesion:string,
+    carga_resp:string,
+    observ:string,
     estado:boolean): Observable<any> {
       if(id == 0){ 
 

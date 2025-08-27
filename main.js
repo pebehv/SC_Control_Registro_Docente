@@ -70,6 +70,8 @@ app.on('window-all-closed', () => {
         trayecto INTEGER ,
         estado INTEGER ,
         profesion TEXT ,
+        carga_resp TEXT ,
+        observ TEXT ,
         FOREIGN KEY (trayecto) REFERENCES trayecto(id),
         FOREIGN KEY (docente) REFERENCES persona(id),
         FOREIGN KEY (estado) REFERENCES status(id)
