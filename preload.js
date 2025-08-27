@@ -51,9 +51,9 @@ contextBridge.exposeInMainWorld('docenteAPI', {
     actualizarPersona: (id,nombre, apellido, ci, email, tlf, fechaNac, sexo) => 
         ipcRenderer.send('actualizar-persona', {id, nombre, apellido, ci, email, tlf, fechaNac, sexo }),
     actualizarDocente: ( docente,  carga_acad, trayecto, 
-        profesion,estado) => 
+        profesion,estado, sede, carga_resp,observ) => 
         ipcRenderer.send('actualizar-docente', { docente,  carga_acad, trayecto, 
-        profesion,estado}),
+        profesion,estado, sede, carga_resp,observ}),
     
     ipcRenderer: {
         send: (channel, data) => ipcRenderer.send(channel, data),

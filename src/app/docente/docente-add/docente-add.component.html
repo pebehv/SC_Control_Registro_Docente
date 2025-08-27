@@ -103,9 +103,9 @@
           <select 
             id="estado" formControlName="estado"
             name="estado">
-              <option value="">Activo</option>
-              <option value="F">Inactivo</option>
-              <option value="M">Por Ingresar</option>
+              <option value="1">Activo</option>
+              <option value="2">Inactivo</option>
+              <option value="3">Por Ingresar</option>
               
               <!-- Add options here -->
           </select>
@@ -137,26 +137,16 @@
             required
           />
         </div>
-        <div class="form-group">
-          <label for="trayecto">Trayecto</label>
-          <input
-            type="text"
-            id="trayecto"
-            
-            name="trayecto"
-            formControlName="trayecto"
-            required
-          />
-        </div>
+    
 
         <div class="form-group">
           <label for="trayecto">Trayecto</label>
           <select 
             id="trayecto" formControlName="trayecto"
             name="trayecto">
-              <option value="">Inicial</option>
-              <option value="F">Mixto</option>
-              <option value="M">Regular</option>
+              <option value="1">Inicial</option>
+              <option value="2">Mixto</option>
+              <option value="3">Regular</option>
               
               <!-- Add options here -->
           </select>
@@ -167,9 +157,9 @@
           <select 
             id="sede" formControlName="sede"
             name="sede">
-              <option value="">Carmen Ruiz</option>
-              <option value="F">Ciudad Miranda</option>
-              <option value="M">Mixto</option>
+              <option value="1">Carmen Ruiz</option>
+              <option value="2">Ciudad Miranda</option>
+              <option value="3">Mixto</option>
               
               <!-- Add options here -->
           </select>
@@ -191,8 +181,8 @@
             type="text"
             id="carga_resp"
             
-            name="carga_acad"
-            formControlName="carga_acad"
+            name="carga_resp"
+            formControlName="carga_resp"
             required
           />
         </div>

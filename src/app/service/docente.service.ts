@@ -99,7 +99,7 @@ export class DocenteService {
         return new Observable(observer => {
           // Envía el evento al proceso principal
           window.docenteAPI.actualizarDocente(docente,  carga_acad, trayecto, 
-            profesion,estado);
+            profesion,estado, sede, carga_resp,observ);
     
           // Escucha la respuesta
         (window as any).docenteAPI.ipcRenderer.on('docente-actualizada', 

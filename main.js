@@ -379,18 +379,21 @@ ipcMain.on('insertar-docente', (event, docente, carga_acad, trayecto,
 // Manejar la actualización de entidades
 ipcMain.on('actualizar-docente', (event, {
      docente,  carga_acad, trayecto, 
-        profesion,estado
+        profesion,estado, sede, carga_resp,observ
 }) => {
-    console.log('Actualizando docente con ID:', docente, trayecto);
+    console.log('Actualizando docente con ID:', docente, carga_acad, carga_resp);
     db.run(`UPDATE docente SET
         
         carga_acad = ?,
         trayecto = ?,
         profesion = ?,
-        estado = ?
+        estado = ?,
+        sede = ?,
+        carga_resp = ?,
+        observ = ?
         WHERE docente = ?`,
         [ carga_acad, trayecto, 
-        profesion,estado,docente ], function(err) {
+        profesion,estado,sede, carga_resp,observ,docente ], function(err) {
             if (err) {
                 console.error('Error al actualizar docente:', err.message);
                 event.reply('docente-actualizada', { error: err.message });
@@ -456,7 +459,7 @@ ipcMain.on('consultar-imagen', (event, docente_) => {
         if (err) {
             event.reply('imagen-consultados', { error: err.message });
         } else {
-            console.log('imagen-consultados', rows);
+           // console.log('imagen-consultados', rows);
             event.reply('imagen-consultados', { data: rows });
         }
     });
