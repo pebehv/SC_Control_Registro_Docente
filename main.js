@@ -68,8 +68,11 @@ app.on('window-all-closed', () => {
         docente INTEGER,
         carga_acad INTEGER,
         trayecto INTEGER ,
+        sede INTEGER ,
         estado INTEGER ,
         profesion TEXT ,
+        carga_resp TEXT ,
+        observ TEXT ,
         FOREIGN KEY (trayecto) REFERENCES trayecto(id),
         FOREIGN KEY (docente) REFERENCES persona(id),
         FOREIGN KEY (estado) REFERENCES status(id)
@@ -360,11 +363,11 @@ ipcMain.on('actualizar-image', (event, { id, value,filetype, filename, docente
 
 // Manejar la inserción de docentes
 ipcMain.on('insertar-docente', (event, docente, carga_acad, trayecto, 
-        profesion,estado) => {
+        profesion,estado,sede, carga_resp,observ) => {
     console.log('insertar-docente', docente)
     db.run(`INSERT INTO docente (docente,  carga_acad, trayecto, 
-        profesion,estado) VALUES (?, ?, ?,?,?)`, [docente, carga_acad, trayecto, 
-        profesion,estado], function(err) {
+        profesion,estado, sede, carga_resp,observ) VALUES (?, ?, ?,?,?, ?,?,?)`, [docente, carga_acad, trayecto, 
+        profesion,estado, sede, carga_resp,observ], function(err) {
         if (err) {
             event.reply('docente-insertado', { error: err.message });
         } else {

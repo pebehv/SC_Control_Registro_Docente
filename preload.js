@@ -22,9 +22,9 @@ contextBridge.exposeInMainWorld('myAPI', {
 
 contextBridge.exposeInMainWorld('docenteAPI', {
     insertDocente: (docente, carga_acad, trayecto,
-        profesion,estado) => 
+        profesion,estado,sede, carga_resp,observ) => 
         ipcRenderer.send('insertar-docente', docente, carga_acad, trayecto, 
-        profesion,estado),
+        profesion,estado, sede, carga_resp,observ),
         // Método para escuchar la respuesta del backend
     // 'on' es el prefijo para los listeners de eventos
     onDocenteInsertado: (callback) => {

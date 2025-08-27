@@ -81,6 +81,9 @@ export class DocenteAddComponent {
           sexo: [null, []],
           pnf: [null, []],
           carga_acad: [null, []],
+          carga_resp: [null, []],
+          observ: [null, []],
+          //espec: [null, []],
           trayecto: [null, []],
           sede: [null, []],
           profesion: [null, []],
@@ -105,6 +108,8 @@ export class DocenteAddComponent {
         sexo: this.docenteSelected.sexo,
         pnf: this.docenteSelected.pnf,
         carga_acad: this.docenteSelected.carga_acad,
+        carga_resp: this.docenteSelected.carga_resp,
+        observ: this.docenteSelected.observ,
         trayecto: this.docenteSelected.trayecto,
         sede: this.docenteSelected.sede,
         profesion: this.docenteSelected.profesion,
@@ -148,6 +153,8 @@ export class DocenteAddComponent {
           this.valForm.value['trayecto'],
           this.valForm.value['sede'],
           this.valForm.value['profesion'],
+          this.valForm.value['carga_resp'],
+          this.valForm.value['observ'],
           this.valForm.value['estado']  )   
         
       },
@@ -179,6 +186,8 @@ export class DocenteAddComponent {
           this.valForm.value['trayecto'],
           this.valForm.value['sede'],
           this.valForm.value['profesion'],
+          this.valForm.value['carga_resp'],
+          this.valForm.value['observ'],
           this.valForm.value['estado']  )     
         
       },
@@ -214,12 +223,14 @@ export class DocenteAddComponent {
 
   insertarDocente(st: number, docente:number,  
     carga_acad: number,
-    trayecto: string,
-    sede:string,
+    trayecto: number,
+    sede:number,
     profesion:string,
-    estado:boolean){
+    carga_resp:string,
+    observ:string,
+    estado:number){
       // Llama al servicio e inserta los datos
-    this.docenteService.insertarDocente(st, docente, carga_acad,trayecto,sede,profesion,estado).subscribe({
+    this.docenteService.insertarDocente(st, docente, carga_acad,trayecto,sede,profesion,carga_resp,observ,  estado).subscribe({
       next: (response) => {
         // El registro fue guardado exitosamente
         console.log('Docente guardado con ID:', response);

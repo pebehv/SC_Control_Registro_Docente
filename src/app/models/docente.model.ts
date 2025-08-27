@@ -10,6 +10,8 @@ export class IDocente{
     fechaNac: any
     sexo: string;
     carga_acad: number;
+    carga_resp: string;
+    observ: string;
     pnf: string;
     trayecto: string;
     sede: string;
@@ -38,6 +40,8 @@ export class IDocente{
         this.nombre_imagen = '';
         this.imagen_data = '';
         this.tipo_mime = '';
+        this.carga_resp = '';
+        this.observ = '';
         this.estado = false
     }
     static fromObject(color: IDocente): IDocente{
@@ -59,6 +63,8 @@ export class IDocente{
         obj.nombre_imagen = color.nombre_imagen;
         obj.tipo_mime = color.tipo_mime;
         obj.imagen_data = color.imagen_data;
+        obj.carga_resp = color.carga_resp;
+        obj.observ = color.observ;
         obj.estado = color.estado;
         return obj;
     }

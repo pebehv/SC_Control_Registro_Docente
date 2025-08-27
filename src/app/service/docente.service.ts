@@ -69,16 +69,18 @@ export class DocenteService {
   }
   insertarDocente(id:number, docente: number,
     carga_acad: number,
-    trayecto: string,
-    sede:string,
+    trayecto: number,
+    sede:number,
     profesion:string,
-    estado:boolean): Observable<any> {
+    carga_resp:string,
+    observ:string,
+    estado:number): Observable<any> {
       if(id == 0){ 
 
         return new Observable(observer => {
           // Envía el evento al proceso principal
           window.docenteAPI.insertDocente(docente,  carga_acad, trayecto, 
-            profesion,estado);
+            profesion,estado, sede, carga_resp,observ);
     
           // Escucha la respuesta
           window.docenteAPI.onDocenteInsertado((response: any) => {
