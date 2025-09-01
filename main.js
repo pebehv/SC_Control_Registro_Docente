@@ -279,6 +279,37 @@ ipcMain.on('consultar-pnf', (event) => {
     });
 });
 
+ipcMain.on('actualizar-pnf', (event, {id,nombre }) => {
+    console.log('Actualizando pnf con ID:', id);
+    db.run(`UPDATE pnf SET
+        nombre = ?,
+        WHERE id = ?`,
+        [nombre, id ], function(err) {
+            if (err) {
+                console.error('Error al actualizar pnf:', err.message);
+                event.reply('pnf-actualizada', { error: err.message });
+            } else {
+                console.log('pnf actualizada con éxito:', this.changes);
+                event.reply('pnf-actualizada', { idd: true, id });
+            }
+        }
+    );
+});
+
+ipcMain.on('insertar-pnf', (event, nombre) => {
+    console.log('insertar-pnf', nombre)
+    db.run(`INSERT INTO pnf (name) 
+        VALUES (?)`, 
+        [nombre], function(err) {
+        if (err) {
+            event.reply('pnf-insertado', { error: err.message });
+        } else {
+            event.reply('pnf-insertado', { idd: this.lastID });
+        }
+    });
+});
+
+
 ipcMain.on('insert-image', (event,value_,filetype, filename, docente) => {
     console.log('insert-image init',value_,filetype, filename, docente)
     console.log('end insert-image')

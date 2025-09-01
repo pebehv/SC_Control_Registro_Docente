@@ -8,13 +8,19 @@
     
             <div class="buscar" >
                 <app-search></app-search>
-                <button class="add-case" (click)="showAddDocenteForm()" >
-                  Registrar Docente
+                <button class="add-case" (click)="showAddPNFForm()" >
+                  Registrar PNF
                 </button>
                
               </div>
             </div>
-            
+            <div *ngIf="!showAddDocente">
+                <app-pnf-table ></app-pnf-table>
+            </div>
+            <div *ngIf="showAddDocente" >
+              <app-pnf-add ></app-pnf-add>
+            </div>
+          
     
     </div>
     

@@ -28,7 +28,7 @@ export class DocenteService {
     fechaNac:string, sexo:string): Observable<any> {
     return new Observable(observer => {
       // Envía el evento al proceso principal
-      window.docenteAPI.insertPersona(nombre, apellido, ci, email, tlf, 
+      window.x.insertPersona(nombre, apellido, ci, email, tlf, 
         fechaNac, sexo);
 
       // Escucha la respuesta

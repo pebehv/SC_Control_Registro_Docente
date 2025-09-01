@@ -1,0 +1,44 @@
+<nav class="tabs">
+  <button class="tab active">Agregar Usuario</button>
+</nav>
+
+<div class="user-form-container">
+    
+
+  
+    <form [formGroup]="valForm"    (ngSubmit)="onSubmit()">
+
+      
+    <div class="form-grid2">
+          <!-- Column 1 -->
+          
+          <!--button mat-menu-item (click)="fileImage.click()">
+          img
+          </button-->
+      <div class="form-column">
+        
+        <div class="form-group">
+          <label for="nombre">Nombre *</label>
+          <input
+            type="text"
+            id="nombre"  
+            name="nombre"
+            formControlName="nombre"
+            required
+          />
+        </div>
+
+      </div>
+
+  
+      
+    </div>
+
+    
+      <div class="button-group-user">
+        <button type="submit"  class="btn-primary" [disabled]="loading"
+        >Guardar</button>
+        <button type="button" class="btn-secondary" (click)="onGoBack()">Cancelar</button>
+      </div>
+    </form>
+  </div>

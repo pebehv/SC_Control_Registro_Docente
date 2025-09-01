@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { RouterModule, Routes } from '@angular/router';
 import { PnfMainComponent } from '../pnf-main/pnf-main.component';
+import { PnfTableComponent } from '../pnf-table/pnf-table.component';
+import { PnfAddComponent } from '../pnf-add/pnf-add.component';
 
 const routes: Routes = [
     {
@@ -17,7 +19,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [PnfMainComponent],
+  declarations: [PnfMainComponent, PnfTableComponent, PnfAddComponent],
   imports: [
      CommonModule,
     SidenavComponent, 

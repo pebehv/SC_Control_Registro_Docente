@@ -73,6 +73,17 @@ contextBridge.exposeInMainWorld('pnfAPI', {
     actualizarUsuario: (id, nombre, apellido, ci, email, user, password, rol) => 
         ipcRenderer.send('actualizar-usuario', { id, nombre, apellido, ci, email, user, password, rol }),
     */
+   insertPNF: (nombre) => 
+        ipcRenderer.send('insertar-pnf', nombre),
+      // Método para escuchar la respuesta del backend
+    
+    onPNFInsertado: (callback) => {
+        // Usa .removeAllListeners() para evitar la acumulación de listeners
+        ipcRenderer.removeAllListeners('pnf-insertado');
+        ipcRenderer.on('pnf-insertado', (event, response) => callback(response));
+    },
+    actualizarPNF: (id, nombre, activo) => 
+        ipcRenderer.send('actualizar-pnf', {id, nombre, activo }),
     ipcRenderer: {
         send: (channel, data) => ipcRenderer.send(channel, data),
         on: (channel, func) => ipcRenderer.on(channel, func),

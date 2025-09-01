@@ -1,0 +1,26 @@
+<div class="table-container">
+    <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Activo</th>
+       
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of getEntidadesPaginaActual()">
+            <td >-</td>
+            <td >x.name</td>
+            <td >-</td>
+           
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+      </div>
+</div>
