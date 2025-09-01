@@ -1,0 +1,21 @@
+<div class="case-main-container">
+
+    <app-sidenav></app-sidenav>
+    <div class="case-main-content">
+    
+        <div class="case-main-header" *ngIf="!showAddDocente">
+            <h1>PNF</h1>
+    
+            <div class="buscar" >
+                <app-search></app-search>
+                <button class="add-case" (click)="showAddDocenteForm()" >
+                  Registrar Docente
+                </button>
+               
+              </div>
+            </div>
+            
+    
+    </div>
+    
+</div>
