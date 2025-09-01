@@ -13,8 +13,8 @@ export class IDocente{
     carga_resp: string;
     observ: string;
     pnf: string;
-    trayecto: string;
-    sede: string;
+    trayecto: number;
+    sede: number;
     profesion: string;
     nombre_imagen: string;
     tipo_mime: string;
@@ -34,8 +34,8 @@ export class IDocente{
         this.sexo = '';
         this.carga_acad = 0;
         this.pnf = '';
-        this.trayecto = '';
-        this.sede = '';
+        this.trayecto = 0;
+        this.sede = 0;
         this.profesion = '';
         this.nombre_imagen = '';
         this.imagen_data = '';

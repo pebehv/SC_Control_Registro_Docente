@@ -364,7 +364,7 @@ ipcMain.on('actualizar-image', (event, { id, value,filetype, filename, docente
 // Manejar la inserción de docentes
 ipcMain.on('insertar-docente', (event, docente, carga_acad, trayecto, 
         profesion,estado,sede, carga_resp,observ) => {
-    console.log('insertar-docente', docente)
+    console.log('insertar-docente', docente, trayecto)
     db.run(`INSERT INTO docente (docente,  carga_acad, trayecto, 
         profesion,estado, sede, carga_resp,observ) VALUES (?, ?, ?,?,?, ?,?,?)`, [docente, carga_acad, trayecto, 
         profesion,estado, sede, carga_resp,observ], function(err) {
@@ -381,7 +381,7 @@ ipcMain.on('actualizar-docente', (event, {
      docente,  carga_acad, trayecto, 
         profesion,estado, sede, carga_resp,observ
 }) => {
-    console.log('Actualizando docente con ID:', docente, carga_acad, carga_resp);
+    console.log('Actualizando docente con ID:', docente, carga_acad, carga_resp, trayecto);
     db.run(`UPDATE docente SET
         
         carga_acad = ?,

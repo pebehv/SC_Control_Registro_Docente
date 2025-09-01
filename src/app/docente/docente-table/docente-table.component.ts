@@ -81,4 +81,47 @@ export class DocenteTableComponent {
     const endIndex = startIndex + this.itemsPerPage;
     return this.docente.slice(startIndex, endIndex);
   }
+
+  getTrayecto( id: number){
+    if(id == 1){ return 'Inicial' }
+    if(id == 2){ return 'Mixto' }
+    if(id == 3){ return 'Regular' }
+    return ''
+
+  }
+  getStatus( id: number){
+    if(id == 1){ return 'Activo' }
+    if(id == 2){ return 'Inactivo' }
+    if(id == 3){ return 'Por Ingresar  ' }
+    return ''
+
+  }
+
+  getSede( id: number){
+    if(id == 1){ return 'Carmen Ruiz ' }
+    if(id == 2){ return 'Ciudad Miranda' }
+    if(id == 3){ return 'Mixto' }
+    return ''
+
+  }
+
+  calculoEdad(fecha: any){
+    const fechaActual = new Date();
+    const fechaInicio = new Date(fecha);
+    //const diferenciaEnMilisegundos = fechaActual.getTime() - fechaInicio.getTime();
+    console.log(fechaActual); 
+    console.log(fecha); 
+    // Diferencia en milisegundos
+    const diferenciaEnMilisegundos = fechaActual.getTime() - fechaInicio.getTime();
+    
+    // Milisegundos en un año promedio (365.25 días)
+    const milisegundosEnUnAnio = 1000 * 60 * 60 * 24 * 365.25;
+    
+    // Cálculo de los años
+    const aniosTranscurridos = diferenciaEnMilisegundos / milisegundosEnUnAnio;
+    
+    // Mostrar el resultado
+    console.log(`Han pasado ${aniosTranscurridos.toFixed(0)} años.`);
+    console.log(diferenciaEnMilisegundos); 
+  }
 }

@@ -26,14 +26,19 @@
             <td>{{ x.nombre }}</td>
             <td>{{ x.tlf }}</td>
             <td>{{ x.fechaNac }}</td>
-            <td></td>
+            <td>{{ calculoEdad(x.fechaNac)}}</td>
             <td>{{ x.sexo }}</td>
             <td>{{ x.email }}</td>
-            <td></td>
+            <td>{{ x.carga_resp }}</td>
+            
             <td>{{ x.pnf }}</td>
             <td>{{ x.carga_acad }}</td>
-            <td>{{ x.trayecto }}</td>
-            <td>{{ x.sede }}</td>
+            <td>
+              {{getTrayecto(x.trayecto)}}
+            </td>
+            <td>
+              {{getSede(x.sede)}}
+            </td>
             <td>{{ x.profesion  }}</td>
             <td>{{ x.estado  }}</td>
             
