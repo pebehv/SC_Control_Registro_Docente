@@ -82,6 +82,15 @@ contextBridge.exposeInMainWorld('pnfAPI', {
         ipcRenderer.removeAllListeners('pnf-insertado');
         ipcRenderer.on('pnf-insertado', (event, response) => callback(response));
     },
+   deletePNF: (id) => 
+        ipcRenderer.send('eliminar-pnf', id),
+      // Método para escuchar la respuesta del backend
+    
+        onPNFdelete: (callback) => {
+            // Usa .removeAllListeners() para evitar la acumulación de listeners
+            ipcRenderer.removeAllListeners('pnf-eliminado');
+            ipcRenderer.on('pnf-eliminado', (event, response) => callback(response));
+    },
     actualizarPNF: (id, nombre, activo) => 
         ipcRenderer.send('actualizar-pnf', {id, nombre, activo }),
     ipcRenderer: {

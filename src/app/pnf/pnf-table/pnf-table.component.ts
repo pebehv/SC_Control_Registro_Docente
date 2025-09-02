@@ -15,6 +15,8 @@ export class PnfTableComponent {
   pnf: IPNF[] = []
   docenteelected: IPNF = new IPNF() ;
   @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onSelectedDelete: EventEmitter<any> = new EventEmitter<any>();
+
 
   itemsPerPage: number = 10; // Número de elementos por página
   currentPage: number = 1; // Página actual
@@ -58,5 +60,35 @@ export class PnfTableComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.pnf.slice(startIndex, endIndex);
+  }
+
+  editarpnf(PNF: any) {
+    //this.PNFs = this.PNFs.filter(u => u.cedula !== PNF.cedula);
+    console.log("Editar user");
+    this.onRowSelect(PNF);
+  }
+  deletepnf(PNF: any) {
+    //this.PNFs = this.PNFs.filter(u => u.cedula !== PNF.cedula);
+    console.log("onRowSelectDelete user", PNF);
+     this.pnfService.deletePNF(PNF.id).subscribe({
+        next: (response) => {
+          // El registro fue guardado exitosamente
+          console.log('deletepnf con ID:', response);
+          this.refresh();
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          // Hubo un error al guardar el registro
+          console.error('Error al guardar:', err);
+        }
+      });
+  }
+  onRowSelect(event: any): void {
+    console.log("onRowSelect", event)
+    this.onSelected.next(event);
+  }
+  onRowSelectDelete(event: any): void {
+    console.log("onRowSelect", event)
+    this.onSelectedDelete.next(event);
   }
 }

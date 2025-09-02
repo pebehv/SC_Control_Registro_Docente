@@ -15,10 +15,10 @@
               </div>
             </div>
             <div *ngIf="!showAddDocente">
-                <app-pnf-table ></app-pnf-table>
+                <app-pnf-table (onSelected)="ondataSelected($event)"></app-pnf-table>
             </div>
             <div *ngIf="showAddDocente" >
-              <app-pnf-add ></app-pnf-add>
+              <app-pnf-add  (goBack)="hideAddDocenteForm()" [pnfSelected]="dataSelected" ></app-pnf-add>
             </div>
           
     

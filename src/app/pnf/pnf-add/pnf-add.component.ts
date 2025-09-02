@@ -73,6 +73,7 @@ export class PnfAddComponent {
         // El registro fue guardado exitosamente
         //this.mensaje = `¡Docente guardado con ID: ${response}!`;
         console.log('persona actualizado con ID:', response);
+        this.onGoBack()
         
       },
       error: (err) => {
@@ -89,6 +90,7 @@ export class PnfAddComponent {
         // El registro fue guardado exitosamente
         //this.mensaje = `¡Docente guardado con ID: ${response}!`;
         console.log('persona guardado con ID:', response);  
+        this.onGoBack()
       },
       error: (err) => {
     

@@ -35,6 +35,27 @@ export class PnfService {
             observer.error(response.error);
           } else {
             observer.next(response);
+            
+          }
+          observer.complete();
+        });
+      });
+    });
+  }
+  
+  deletePNF(id: number): Observable<any> {
+    console.log("deletePNF", id)
+    return new Observable(observer => {
+      // Envía el evento al proceso principal
+      window.pnfAPI.deletePNF(id);
+
+      // Escucha la respuesta
+      window.pnfAPI.onPNFdelete((response: any) => {
+        this.ngZone.run(() => {
+          if (response.error) {
+            observer.error(response.error);
+          } else {
+            observer.next(response);
           }
           observer.complete();
         });

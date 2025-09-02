@@ -41,4 +41,5 @@ export class PnfMainComponent {
     this.dataSelected = $event;
     this.cdr.detectChanges();
   }
+
 }

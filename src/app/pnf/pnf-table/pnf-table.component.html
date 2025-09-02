@@ -4,16 +4,21 @@
           <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Activo</th>
-       
+            <th>Acciones</th>
+      
             
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let x of getEntidadesPaginaActual()">
-            <td >-</td>
-            <td >x.name</td>
-            <td >-</td>
+            
+            <td >{{x.id}} </td>
+            <td >{{x.name}} </td>
+   
+            <td>
+              <button class="edit" (click)="editarpnf(x)">✏️</button>
+              <button class="edit" (click)="deletepnf(x)">❌</button>
+            </td>
            
           </tr>
         </tbody>

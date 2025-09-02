@@ -52,8 +52,8 @@ export class DocenteAddComponent {
       singleSelection: false,
       idField: 'id',
       textField: 'name',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
+      selectAllText: 'Selecionar Todos',
+      unSelectAllText: 'Desmarcar Todos',
       itemsShowLimit: 5,
       allowSearchFilter: true
     } ; 

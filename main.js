@@ -282,7 +282,7 @@ ipcMain.on('consultar-pnf', (event) => {
 ipcMain.on('actualizar-pnf', (event, {id,nombre }) => {
     console.log('Actualizando pnf con ID:', id);
     db.run(`UPDATE pnf SET
-        nombre = ?,
+        name = ?
         WHERE id = ?`,
         [nombre, id ], function(err) {
             if (err) {
@@ -309,6 +309,17 @@ ipcMain.on('insertar-pnf', (event, nombre) => {
     });
 });
 
+
+
+ipcMain.on('eliminar-pnf', (event, id) => {
+    db.run(`DELETE FROM pnf WHERE id = ?`, [id], function(err) {
+        if (err) {
+            event.reply('pnf-eliminado', { error: err.message });
+        } else {
+            event.reply('pnf-eliminado', { success: true, id });
+        }
+    });
+});
 
 ipcMain.on('insert-image', (event,value_,filetype, filename, docente) => {
     console.log('insert-image init',value_,filetype, filename, docente)
