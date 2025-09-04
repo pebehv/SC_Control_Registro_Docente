@@ -82,6 +82,27 @@ contextBridge.exposeInMainWorld('pnfAPI', {
         ipcRenderer.removeAllListeners('pnf-insertado');
         ipcRenderer.on('pnf-insertado', (event, response) => callback(response));
     },
+
+   insertPNFsDoc: (pnfs, docente) => 
+        ipcRenderer.send('insertar-rela-pnf', pnfs, docente),
+      // Método para escuchar la respuesta del backend
+    
+    onPNFDocInsertado: (callback) => {
+        // Usa .removeAllListeners() para evitar la acumulación de listeners
+        ipcRenderer.removeAllListeners('rela-pnf-insertados');
+        ipcRenderer.on('rela-pnf-insertados', (event, response) => callback(response));
+    },
+   buscarPNFDoc: ( docente) => 
+        ipcRenderer.send('consultar-rela-pnf', docente),
+      // Método para escuchar la respuesta del backend
+    
+    onPNFDocBuscar: (callback) => {
+        // Usa .removeAllListeners() para evitar la acumulación de listeners
+        ipcRenderer.removeAllListeners('rela_pnf-consultados');
+        ipcRenderer.on('rela_pnf-consultados', (event, response) => callback(response));
+    },
+
+   // buscarPNFDoc: (docente) => ipcRenderer.send('consultar-rela-pnf', docente),
    deletePNF: (id) => 
         ipcRenderer.send('eliminar-pnf', id),
       // Método para escuchar la respuesta del backend
@@ -98,6 +119,8 @@ contextBridge.exposeInMainWorld('pnfAPI', {
         on: (channel, func) => ipcRenderer.on(channel, func),
         once: (channel, func) => ipcRenderer.once(channel, func),
     },
+
+
 });
 
 

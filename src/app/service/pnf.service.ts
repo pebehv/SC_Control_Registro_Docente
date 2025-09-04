@@ -22,11 +22,53 @@ export class PnfService {
       });
   }
 
+  consultarPNFDoc(docente: number): Observable<any> {
+    console.log("consultarPNFDoc", docente)
+    return new Observable(observer => {
+      // Envía el evento al proceso principal
+      window.pnfAPI.buscarPNFDoc(docente);
+
+      // Escucha la respuesta
+      window.pnfAPI.onPNFDocBuscar((response: any) => {
+        this.ngZone.run(() => {
+          if (response.error) {
+            observer.error(response.error);
+          } else {
+            console.log('service consultarPNFDoc ', response)
+            observer.next(response);
+            
+          }
+          observer.complete();
+        });
+      });
+    });
+  }
   insertarPNF(nombre: string): Observable<any> {
     console.log("insertarPNF", nombre)
     return new Observable(observer => {
       // Envía el evento al proceso principal
       window.pnfAPI.insertPNF(nombre);
+
+      // Escucha la respuesta
+      window.pnfAPI.onPNFInsertado((response: any) => {
+        this.ngZone.run(() => {
+          if (response.error) {
+            observer.error(response.error);
+          } else {
+            observer.next(response);
+            
+          }
+          observer.complete();
+        });
+      });
+    });
+  }
+  
+  insertPNFsDoc(pnfs: any[], docente: number ): Observable<any> {
+    console.log("insertarPNF", pnfs)
+    return new Observable(observer => {
+      // Envía el evento al proceso principal
+      window.pnfAPI.insertPNFsDoc(pnfs, docente);
 
       // Escucha la respuesta
       window.pnfAPI.onPNFInsertado((response: any) => {

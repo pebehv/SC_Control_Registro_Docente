@@ -322,7 +322,7 @@ ipcMain.on('eliminar-pnf', (event, id) => {
 });
 
 ipcMain.on('insert-image', (event,value_,filetype, filename, docente) => {
-    console.log('insert-image init',value_,filetype, filename, docente)
+    //console.log('insert-image init',value_,filetype, filename, docente)
     console.log('end insert-image')
     db.run(`INSERT INTO imagen (imagen_data,tipo_mime,nombre_imagen, docente) 
         VALUES (?, ?, ?, ?)`, 
@@ -395,7 +395,7 @@ ipcMain.on('actualizar-image', (event, { id, value,filetype, filename, docente
                 console.error('Error al actualizar image:', err.message);
                 event.reply('image-actualizada', { error: err.message });
             } else {
-                console.log('image actualizada con éxito:', this.changes);
+                console.log('image actualizada con éxito:');
                 event.reply('image-actualizada', { success: true });
             }
         }
@@ -503,6 +503,43 @@ ipcMain.on('consultar-imagen', (event, docente_) => {
         } else {
            // console.log('imagen-consultados', rows);
             event.reply('imagen-consultados', { data: rows });
+        }
+    });
+});
+
+
+ipcMain.on('insertar-rela-pnf', (event, pnfs, docente) => {
+    // db.serialize() asegura que las consultas se ejecuten en orden
+    db.serialize(() => {
+        // Preparamos la sentencia SQL una sola vez
+        const stmt = db.prepare("INSERT INTO rela_pnf (pnf, docente) VALUES (?,?)");
+
+        // Iteramos sobre el array e insertamos cada registro
+        pnfs.forEach(pnf => {
+            stmt.run(pnf.id, docente, function(err) {
+                if (err) {
+                    console.error('Error al insertar el rela_pnf:', err.message);
+                } else {
+                    console.log(`rela_pnf ${pnf.id} insertado con ID: ${this.lastID}`);
+                }
+            });
+        });
+
+        // Finalizamos la sentencia para liberar los recursos
+        stmt.finalize(() => {
+            // Enviamos una respuesta al proceso de renderizado
+            event.reply('rela-pnf-insertados', { success: true, message: 'Todos los usuarios fueron insertados.' });
+        });
+    });
+});
+
+ipcMain.on('consultar-rela-pnf', (event,docente) => {
+    db.all(`SELECT * FROM rela_pnf WHERE docente = ?`, [docente], (err, rows) => {
+        if (err) {
+            event.reply('rela_pnf-consultados', { error: err.message });
+        } else {
+            console.log('rela_pnf-consultados: : : ', rows);
+            event.reply('rela_pnf-consultados', { pnf: rows });
         }
     });
 });

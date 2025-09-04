@@ -40,6 +40,7 @@ export class DocenteMainComponent {
   // Función para volver a la tabla
   hideAddDocenteForm() {
     this.showAddDocente = false;
+    this.dataSelected = new IDocente();
     this.cdr.detectChanges();
   }
 

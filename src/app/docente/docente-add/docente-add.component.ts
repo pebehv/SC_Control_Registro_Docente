@@ -60,12 +60,17 @@ export class DocenteAddComponent {
 
       if(!this.docenteSelected ){
         this.docenteSelected = new IDocente();
+        this.setForm(); // Carga los valores del usuario seleccionado en el formulario
+        this.getPNF();
       }else{
         this.consultarImage(this.docenteSelected.docente)
+        this.setForm(); // Carga los valores del usuario seleccionado en el formulario
+        this.getPNF();
+        
       }
       //console.log("AddUserComponent", this.docenteSelected)
-    this.setForm(); // Carga los valores del usuario seleccionado en el formulario
-    this.getPNF();
+    
+    
     }
     
     loadForm(): void {
@@ -95,34 +100,66 @@ export class DocenteAddComponent {
     }
   
 
-    setForm(): void {
-      this.valForm.reset({
-        id: this.docenteSelected.id ,
-        docente: this.docenteSelected.docente , // id de persona 
-        apellido: 'no',
-        nombre: this.docenteSelected.nombre,
-        ci: this.docenteSelected.ci,
-        email: this.docenteSelected.email,
-        tlf: this.docenteSelected.tlf,
-        fechaNac: this.docenteSelected.fechaNac,
-        sexo: this.docenteSelected.sexo,
-        pnf: this.docenteSelected.pnf,
-        carga_acad: this.docenteSelected.carga_acad,
-        carga_resp: this.docenteSelected.carga_resp,
-        observ: this.docenteSelected.observ,
-        trayecto: this.docenteSelected.trayecto,
-        sede: this.docenteSelected.sede,
-        profesion: this.docenteSelected.profesion,
-        imagen_data: this.docenteSelected.imagen_data,
-        estado: this.docenteSelected.estado,
+  setForm(): void {
+    this.valForm.reset({
+      id: this.docenteSelected.id ,
+      docente: this.docenteSelected.docente , // id de persona 
+      apellido: 'no',
+      nombre: this.docenteSelected.nombre,
+      ci: this.docenteSelected.ci,
+      email: this.docenteSelected.email,
+      tlf: this.docenteSelected.tlf,
+      fechaNac: this.docenteSelected.fechaNac,
+      sexo: this.docenteSelected.sexo,
+      pnf: this.docenteSelected.pnf,
+      carga_acad: this.docenteSelected.carga_acad,
+      carga_resp: this.docenteSelected.carga_resp,
+      observ: this.docenteSelected.observ,
+      trayecto: this.docenteSelected.trayecto,
+      sede: this.docenteSelected.sede,
+      profesion: this.docenteSelected.profesion,
+      imagen_data: this.docenteSelected.imagen_data,
+      estado: this.docenteSelected.estado,
+      
+    });
+  }
+   
+  consultarPNFDoc(docente: number){
+
+    //console.log(" consultarPNFDoc")
+    this.pnfService.consultarPNFDoc(docente  ).subscribe({
+      next: (response) => {
+        // El registro fue guardado exitosamente
+        //this.mensaje = `¡Docente guardado con ID: ${response}!`;
+  
+
+         this.pnfSelected.push= response.pnf.map((x: any) => {
+           const elem = this.pnf.find((element) =>{ 
+             element.id == x['pnf']
+ 
+           });
+           return this.pnf.find((element) => element.id == x['pnf']);    
+         })
+
+
         
-      });
-    }
-    
+      },
+      error: (err) => {
+        // Hubo un error al guardar el registro
+        //this.mensaje = `Error al guardar: ${err}`;
+        console.error('Error consultarPNFDoc:', err);
+      }
+    });
+  }
     // Función para manejar el botón "Volver atrás"
     onGoBack() {
       //console.log("onGoBack")
       this.goBack.emit(); // Emitir el evento
+      while(this.pnfSelected.length > 0){
+        this.pnfSelected.pop();
+      }
+      this.docenteSelected = new IDocente()
+      this.cdr.detectChanges()
     }
     
   // Función para manejar el envío del formulario
@@ -238,6 +275,7 @@ export class DocenteAddComponent {
           this.insertarImg(docente)
         }
   
+        this.insertPNFsDoc(docente);
         this.onGoBack();
         this.cdr.detectChanges();
       },
@@ -258,7 +296,34 @@ export class DocenteAddComponent {
       this.cdr.detectChanges();
     })*/
    
+  }
+  insertPNFsDoc(docente:number ){
+      // Llama al servicio e inserta los datos
+    this.pnfService.insertPNFsDoc(this.valForm.value['myDropdownControl'], docente).subscribe({
+      next: (response) => {
+        // El registro fue guardado exitosamente
+        console.log('insertPNFsDoc guardado :', response);
+       
+        //this.onGoBack();
+       // this.cdr.detectChanges();
+      },
+      error: (err) => {
+        // Hubo un error al guardar el registro
+        console.error('Error al guardar:', err);
+      }
+    });
+    /*this.docenteService.insertarDocente(
+      st, docente, carga_acad,trayecto,sede,profesion,estado
+    ).subscribe((valu:any)=>{
+      console.log('se ingreso el docente insertarDocente ' , valu )
+      /*if(this.img_bool){
+        this.insertarImg(docente)
+      }*
 
+      this.onGoBack();
+      this.cdr.detectChanges();
+    })*/
+   
   }
   
   onItemSelect(item: any) {
@@ -275,6 +340,10 @@ export class DocenteAddComponent {
     this.pnfService.consultarPNF((rows:any[]) => {
       this.pnf = rows;
       console.log(rows);
+      if(this.docenteSelected.docente != 0){
+
+        this.consultarPNFDoc(this.docenteSelected.docente)
+      }
       this.cdr.detectChanges();
     });
   }

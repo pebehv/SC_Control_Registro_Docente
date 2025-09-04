@@ -118,7 +118,7 @@
           [placeholder]="'Selecionar'"
           [settings]="dropdownSettings"
           [data]="pnf"
-          [(ngModel)]="pnfSelected"
+          [(ngModel)]="pnfSelected.push"
           formControlName="myDropdownControl"
           (onSelect)="onItemSelect($event)"
           (onSelectAll)="onSelectAll($event)"
