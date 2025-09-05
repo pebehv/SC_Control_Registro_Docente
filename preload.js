@@ -101,6 +101,15 @@ contextBridge.exposeInMainWorld('pnfAPI', {
         ipcRenderer.removeAllListeners('rela_pnf-consultados');
         ipcRenderer.on('rela_pnf-consultados', (event, response) => callback(response));
     },
+   deletePNFDoc: ( docente) => 
+        ipcRenderer.send('eliminar-rela_pnf', docente),
+      // Método para escuchar la respuesta del backend
+    
+    onPNFDocDelete: (callback) => {
+        // Usa .removeAllListeners() para evitar la acumulación de listeners
+        ipcRenderer.removeAllListeners('rela_pnf-eliminado');
+        ipcRenderer.on('rela_pnf-eliminado', (event, response) => callback(response));
+    },
 
    // buscarPNFDoc: (docente) => ipcRenderer.send('consultar-rela-pnf', docente),
    deletePNF: (id) => 

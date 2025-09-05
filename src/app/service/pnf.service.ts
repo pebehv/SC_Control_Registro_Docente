@@ -22,8 +22,30 @@ export class PnfService {
       });
   }
 
+  deletePNFDoc(docente: number): Observable<any> {
+    console.log("deletePNFDoc", docente)
+    return new Observable(observer => {
+      // Envía el evento al proceso principal
+      window.pnfAPI.deletePNFDoc(docente);
+
+      // Escucha la respuesta
+      window.pnfAPI.onPNFDocDelete((response: any) => {
+        this.ngZone.run(() => {
+          if (response.error) {
+            observer.error(response.error);
+          } else {
+            console.log('service deletePNFDoc ', response)
+            observer.next(response);
+            
+          }
+          observer.complete();
+        });
+      });
+    });
+  }
   consultarPNFDoc(docente: number): Observable<any> {
     console.log("consultarPNFDoc", docente)
+    //this.deletePNFDoc(docente)
     return new Observable(observer => {
       // Envía el evento al proceso principal
       window.pnfAPI.buscarPNFDoc(docente);

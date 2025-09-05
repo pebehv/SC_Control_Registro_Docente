@@ -151,6 +151,33 @@ export class DocenteAddComponent {
       }
     });
   }
+  deletePNFDoc(docente: number){
+
+    //console.log(" deletePNFDoc")
+    this.pnfService.deletePNFDoc(docente  ).subscribe({
+      next: (response) => {
+        // El registro fue guardado exitosamente
+        //this.mensaje = `¡Docente guardado con ID: ${response}!`;
+  
+
+         this.pnfSelected.push= response.pnf.map((x: any) => {
+           const elem = this.pnf.find((element) =>{ 
+             element.id == x['pnf']
+ 
+           });
+           return this.pnf.find((element) => element.id == x['pnf']);    
+         })
+
+
+        
+      },
+      error: (err) => {
+        // Hubo un error al guardar el registro
+        //this.mensaje = `Error al guardar: ${err}`;
+        console.error('Error deletePNFDoc:', err);
+      }
+    });
+  }
     // Función para manejar el botón "Volver atrás"
     onGoBack() {
       //console.log("onGoBack")
@@ -274,7 +301,7 @@ export class DocenteAddComponent {
         if(this.img_bool){
           this.insertarImg(docente)
         }
-  
+        this.deletePNFDoc(docente)
         this.insertPNFsDoc(docente);
         this.onGoBack();
         this.cdr.detectChanges();
@@ -342,6 +369,7 @@ export class DocenteAddComponent {
       console.log(rows);
       if(this.docenteSelected.docente != 0){
 
+        
         this.consultarPNFDoc(this.docenteSelected.docente)
       }
       this.cdr.detectChanges();

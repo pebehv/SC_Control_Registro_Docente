@@ -543,3 +543,16 @@ ipcMain.on('consultar-rela-pnf', (event,docente) => {
         }
     });
 });
+
+
+ipcMain.on('eliminar-rela_pnf', (event, id) => {
+    db.run(`DELETE FROM rela_pnf WHERE docente = ?`, [id], function(err) {
+        if (err) {
+            console.log('rela_pnf-eliminado err:  ', err);
+            event.reply('rela_pnf-eliminado', { error: err.message });
+        } else {
+            console.log('rela_pnf-eliminado:  ');
+            event.reply('rela_pnf-eliminado', { success: true, id });
+        }
+    });
+});
