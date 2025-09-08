@@ -20,6 +20,7 @@ export class IDocente{
     tipo_mime: string;
     imagen_data: string;
     estado: boolean;
+    status: string;
     
 
     constructor(){
@@ -43,6 +44,7 @@ export class IDocente{
         this.carga_resp = '';
         this.observ = '';
         this.estado = false
+        this.status = ''
     }
     static fromObject(color: IDocente): IDocente{
         let obj = new IDocente();
@@ -66,6 +68,9 @@ export class IDocente{
         obj.carga_resp = color.carga_resp;
         obj.observ = color.observ;
         obj.estado = color.estado;
+        obj.status = color.status;
         return obj;
     }
+
+
 }

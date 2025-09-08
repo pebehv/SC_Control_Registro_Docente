@@ -463,23 +463,32 @@ ipcMain.on('actualizar-docente', (event, {
 
 // Manejar la consulta de C.I
 ipcMain.on('consultar-docente', (event) => {
+    // La consulta SQL con GROUP_CONCAT y el nuevo JOIN
     db.all(`SELECT 
-                d.*,           -- Selecciona todos los campos de caso_investigador
-                pers.nombre,       -- Selecciona el nombre del investigador (puede ser NULL)
-                pers.tlf,       -- Selecciona el nombre del investigador (puede ser NULL)
-                pers.fechaNac,       -- Selecciona el nombre del investigador (puede ser NULL)
-                pers.sexo,       -- Selecciona el nombre del investigador (puede ser NULL)
-                pers.email,       -- Selecciona el nombre del investigador (puede ser NULL)
-                pers.ci,       -- Selecciona el nombre del investigador (puede ser NULL)
-                img.tipo_mime       -- Selecciona el nombre del investigador (puede ser NULL)
-                
+                d.*,
+                pers.nombre,
+                pers.tlf,
+                pers.fechaNac,
+                pers.sexo,
+                pers.email,
+                pers.ci,
+                img.tipo_mime,
+                GROUP_CONCAT(pnf.name) AS pnf,
+                s.name AS status
             FROM 
                 docente d
             LEFT JOIN 
-                persona pers ON d.docente = pers.id  
+                persona pers ON d.docente = pers.id 
             LEFT JOIN 
-                imagen img ON img.docente = pers.id`, 
-
+                rela_pnf rel ON d.docente = rel.docente 
+            LEFT JOIN 
+                pnf pnf ON rel.pnf = pnf.id
+            LEFT JOIN 
+                status s ON d.estado = s.id
+            LEFT JOIN
+                imagen img ON img.docente = pers.id
+            GROUP BY 
+                d.id`, 
     [], (err, rows) => {
         if (err) {
             event.reply('docente-consultados', { error: err.message });

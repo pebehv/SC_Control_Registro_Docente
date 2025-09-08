@@ -17,11 +17,13 @@ export class DocenteTableComponent {
 
   @Input() searchTerm: string = ''; // Recibe el término de búsqueda
   docente: IDocente[] = []
+  filteredDocentes: IDocente[] = []; // La lista de docentes filtrada y paginada
   docenteelected: IDocente = new IDocente() ;
   @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
 
   itemsPerPage: number = 10; // Número de elementos por página
   currentPage: number = 1; // Página actual
+  allFilters: any = {}; // Objeto para guardar los valores de los filtros
 
   constructor(
     private docenteService: DocenteService,
@@ -37,6 +39,7 @@ export class DocenteTableComponent {
     console.log("refresh DocenteTableComponent")
     this.docenteService.consultarDocente((rows:any[]) => {
       this.docente = rows;
+      this.applyFiltersAndPaginate();
       console.log(this.docente);
       
       this.calcularTotalPaginas();
@@ -65,6 +68,7 @@ export class DocenteTableComponent {
   previousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
+      this.applyFiltersAndPaginate();
     }
     this.cdr.detectChanges();
   }
@@ -73,6 +77,7 @@ export class DocenteTableComponent {
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
+      this.applyFiltersAndPaginate();
     }
     this.cdr.detectChanges();
   }
@@ -108,9 +113,7 @@ export class DocenteTableComponent {
   calculoEdad(fecha: any){
     const fechaActual = new Date();
     const fechaInicio = new Date(fecha);
-    //const diferenciaEnMilisegundos = fechaActual.getTime() - fechaInicio.getTime();
-    console.log(fechaActual); 
-    console.log(fecha); 
+
     // Diferencia en milisegundos
     const diferenciaEnMilisegundos = fechaActual.getTime() - fechaInicio.getTime();
     
@@ -121,7 +124,57 @@ export class DocenteTableComponent {
     const aniosTranscurridos = diferenciaEnMilisegundos / milisegundosEnUnAnio;
     
     // Mostrar el resultado
-    console.log(`Han pasado ${aniosTranscurridos.toFixed(0)} años.`);
-    console.log(diferenciaEnMilisegundos); 
+    //console.log(`Han pasado ${aniosTranscurridos.toFixed(0)} años.`);
+
+    return aniosTranscurridos.toFixed(0)
+  }
+  // Nuevo método para manejar el cambio en los inputs de filtro
+  onFilterChange(event: any, property: string) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    // Guarda el valor del filtro para cada propiedad
+    console.log("allFilters filterValue", filterValue)
+    this.allFilters[property] = filterValue.toLowerCase(); 
+    console.log("allFilters", this.allFilters)
+    let x = this.applyFiltersAndPaginate();
+    console.log("allFilters x", x)
+  }
+  // Método que aplica todos los filtros y actualiza la paginación
+  applyFiltersAndPaginate() {
+    let filteredList = this.docente.filter(docente => {
+      console.log("applyFiltersAndPaginate docente", docente)
+    // Haz un aserto de tipo para que TypeScript confíe
+    const docenteConIndice = docente as { [key: string]: any };
+
+    for (let key in this.allFilters) {
+      const filterValue = this.allFilters[key];
+      console.log("form key", key)
+      if (!filterValue) {
+        continue;
+      }
+      // Ahora puedes usar 'key' para indexar sin error
+      const docValue = (docenteConIndice[key] || '').toString().toLowerCase();
+      
+      if (key == 'status') {
+     
+         if (!docValue.startsWith(filterValue) ) {
+          return false;
+        }
+        return true;
+      }
+      if (!docValue.includes(filterValue) ) {
+        return false;
+      }
+      
+    }
+    return true;
+  });
+  console.log("applyFiltersAndPaginate filteredList", filteredList)
+
+    // Ahora, aplica la paginación a la lista filtrada
+    this.currentPage = 1; // Reinicia la página al filtrar
+    this.totalPages = Math.ceil(filteredList.length / this.itemsPerPage);
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.filteredDocentes = filteredList.slice(start, end);
   }
 }

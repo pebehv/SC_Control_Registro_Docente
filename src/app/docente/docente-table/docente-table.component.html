@@ -2,26 +2,48 @@
     <table>
         <thead>
           <tr>
-            <th>CI</th>
-            <th>Docente</th>
-            <th>Telefono</th>
+            <th>CI
+               <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'ci')">
+            </th>
+            <th>Docente
+              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'nombre')">
+            </th>
+            <th>Telefono
+              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'tlf')">
+            </th>
             <th>Fecha de Nacimiento</th>
-            <th>Edad</th>
-            <th>Sexo</th>
-            <th>Correo</th>
+            <th>Edad </th>
+            <th>Sexo
+              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'sexo')">
+            </th>
+            <th>Correo 
+              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'email')">
+            </th>
             <th>Cargo de Responsabilidad</th>
-            <th>PNF</th>
-            <th>Carga Académica Nominal</th>
-            <th>Trayecto</th>
-            <th>Sede</th>
-            <th>Profesion-Especialidad</th>
-            <th>Estado</th>
+            <th>PNF 
+              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'pnf')">
+            </th>
+            <th>Carga Académica Nominal 
+              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'carga_acad')">
+             </th>
+            <th>Trayecto 
+              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'trayecto')">
+            </th>
+            <th>Sede 
+              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'sede')">
+            </th>
+            <th>Profesion-Especialidad 
+              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'profesion')">
+            </th>
+            <th>Estado 
+              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'status')">
+            </th>
             <th>Acciones</th>
             
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let x of getEntidadesPaginaActual()">
+          <tr *ngFor="let x of filteredDocentes">
             <td >{{ x.ci }}</td>
             <td>{{ x.nombre }}</td>
             <td>{{ x.tlf }}</td>
@@ -40,7 +62,7 @@
               {{getSede(x.sede)}}
             </td>
             <td>{{ x.profesion  }}</td>
-            <td>{{ x.estado  }}</td>
+            <td>{{ x.status  }}</td>
             
             <td><button class="edit" (click)="editarDocente(x)">✏️</button></td>
           </tr>
