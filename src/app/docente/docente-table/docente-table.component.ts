@@ -13,7 +13,7 @@ import { IDocente } from '../../models/docente.model';
 })
 export class DocenteTableComponent {
     
-  totalPages: number = 1;
+  totalPages: number = 7;
 
   @Input() searchTerm: string = ''; // Recibe el término de búsqueda
   docente: IDocente[] = []
@@ -68,7 +68,8 @@ export class DocenteTableComponent {
   previousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.applyFiltersAndPaginate();
+      //this.applyFiltersAndPaginate();
+      this.getEntidadesPaginaActual();
     }
     this.cdr.detectChanges();
   }
@@ -77,15 +78,22 @@ export class DocenteTableComponent {
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.applyFiltersAndPaginate();
+      //this.applyFiltersAndPaginate();
+      this.getEntidadesPaginaActual();
+      
     }
     this.cdr.detectChanges();
   }
   getEntidadesPaginaActual(): IDocente[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    return this.docente.slice(startIndex, endIndex);
-  }
+
+    console.log('getEntidadesPaginaActual',this.filteredDocentes, startIndex, endIndex, this.filteredDocentes.slice(startIndex, endIndex))
+    this.filteredDocentes= this.docente.slice(startIndex, endIndex);
+    console.log('getEntidadesPaginaActual',this.filteredDocentes, startIndex, endIndex, this.filteredDocentes.slice(startIndex, endIndex))
+    
+    return this.filteredDocentes.slice(startIndex, endIndex);
+  } 
 
   getTrayecto( id: number){
     if(id == 1){ return 'Inicial' }
@@ -132,22 +140,22 @@ export class DocenteTableComponent {
   onFilterChange(event: any, property: string) {
     const filterValue = (event.target as HTMLInputElement).value;
     // Guarda el valor del filtro para cada propiedad
-    console.log("allFilters filterValue", filterValue)
+    //console.log("allFilters filterValue", filterValue)
     this.allFilters[property] = filterValue.toLowerCase(); 
-    console.log("allFilters", this.allFilters)
+    //console.log("allFilters", this.allFilters)
     let x = this.applyFiltersAndPaginate();
-    console.log("allFilters x", x)
+    //console.log("allFilters x", x)
   }
   // Método que aplica todos los filtros y actualiza la paginación
   applyFiltersAndPaginate() {
     let filteredList = this.docente.filter(docente => {
-      console.log("applyFiltersAndPaginate docente", docente)
+     // console.log("applyFiltersAndPaginate docente", docente)
     // Haz un aserto de tipo para que TypeScript confíe
     const docenteConIndice = docente as { [key: string]: any };
 
     for (let key in this.allFilters) {
       const filterValue = this.allFilters[key];
-      console.log("form key", key)
+      //console.log("form key", key)
       if (!filterValue) {
         continue;
       }
@@ -168,7 +176,7 @@ export class DocenteTableComponent {
     }
     return true;
   });
-  console.log("applyFiltersAndPaginate filteredList", filteredList)
+  //console.log("applyFiltersAndPaginate filteredList", filteredList)
 
     // Ahora, aplica la paginación a la lista filtrada
     this.currentPage = 1; // Reinicia la página al filtrar
@@ -176,5 +184,6 @@ export class DocenteTableComponent {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     this.filteredDocentes = filteredList.slice(start, end);
+    console.log("applyFiltersAndPaginate filteredDocentes", this.filteredDocentes)
   }
 }

@@ -54,7 +54,7 @@ app.on('window-all-closed', () => {
     db.run(`CREATE TABLE IF NOT EXISTS persona (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nombre TEXT NOT NULL,
-        apellido TEXT NOT NULL,
+        
         tlf TEXT,
         fechaNac DATE,
         sexo TEXT NOT NULL ,
@@ -203,11 +203,11 @@ ipcMain.on('actualizar-usuario', (event, { id, nombre, apellido,ci, email,user, 
 
 
 // Manejar la inserción de persona
-ipcMain.on('insertar-persona', (event, nombre,apellido,ci, email, tlf, fechaNac, sexo) => {
-    console.log('insertar-persona', nombre,apellido,ci, email, tlf, fechaNac, sexo)
-    db.run(`INSERT INTO persona (nombre,apellido,ci, email,tlf, fechaNac, sexo) 
-        VALUES (?, ?, ?, ?,?,?,?)`, 
-        [nombre,apellido,ci, email,tlf, fechaNac, sexo], function(err) {
+ipcMain.on('insertar-persona', (event, nombre,ci, email, tlf, fechaNac, sexo) => {
+    console.log('insertar-persona', nombre,ci, email, tlf, fechaNac, sexo)
+    db.run(`INSERT INTO persona (nombre,ci, email,tlf, fechaNac, sexo) 
+        VALUES (?, ?, ?,?,?,?)`, 
+        [nombre,ci, email,tlf, fechaNac, sexo], function(err) {
         if (err) {
             event.reply('persona-insertado', { error: err.message });
         } else {
@@ -247,14 +247,13 @@ ipcMain.on('actualizar-persona', (event, {
     console.log('Actualizando persona con ID:', id);
     db.run(`UPDATE persona SET
         nombre = ?,
-        apellido = ?,
         ci = ?,
         email = ?,
         tlf = ?,
         fechaNac = ?,
         sexo = ?
         WHERE id = ?`,
-        [nombre,apellido,ci, email, tlf, fechaNac, sexo,id ], function(err) {
+        [nombre,ci, email, tlf, fechaNac, sexo,id ], function(err) {
             if (err) {
                 console.error('Error al actualizar persona:', err.message);
                 event.reply('persona-actualizada', { error: err.message });
