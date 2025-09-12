@@ -21,6 +21,8 @@ export class IDocente{
     imagen_data: string;
     estado: boolean;
     status: string;
+    trayecto_name: string;
+    sede_name: string;
     
 
     constructor(){
@@ -45,6 +47,8 @@ export class IDocente{
         this.observ = '';
         this.estado = false
         this.status = ''
+        this.trayecto_name = ''
+        this.sede_name = ''
     }
     static fromObject(color: IDocente): IDocente{
         let obj = new IDocente();
@@ -69,6 +73,8 @@ export class IDocente{
         obj.observ = color.observ;
         obj.estado = color.estado;
         obj.status = color.status;
+        obj.trayecto_name = color.trayecto_name;
+        obj.sede_name = color.sede_name;
         return obj;
     }
 

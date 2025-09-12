@@ -7,19 +7,20 @@
     <app-sidenav></app-sidenav>
     <div class="case-main-content">
     
-        <div class="case-main-header" *ngIf="!showAddDocente">
+        <div class="case-main-header" *ngIf="!showAddDocente" style="    margin: 3% auto;">
             <h1>Docentes</h1>
     
-            <div class="buscar" >
+            <!--div class="buscar" >
                 <app-search></app-search>
-                 <!--app-search *ngIf="!showAddDocente" (searchEvent)="onSearch($event)"></app-search-->
-               <!-- <button class="add-user" (click)="showAddUserForm()" *ngIf="!showAddUser">-->
                 <button class="add-case" (click)="showAddDocenteForm()">
                   Registrar Docente
                 </button>
                
-              </div>
-            </div>
+              </div-->
+              <button class="add-case" (click)="showAddDocenteForm()">
+                  Registrar Docente
+              </button>
+        </div>
 
               
               

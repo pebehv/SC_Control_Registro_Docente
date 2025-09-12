@@ -474,7 +474,9 @@ ipcMain.on('consultar-docente', (event) => {
                 pers.ci,
                 img.tipo_mime,
                 GROUP_CONCAT(pnf.name) AS pnf,
-                s.name AS status
+                s.name AS status,
+                t.name AS trayecto_name,
+                sede.name AS sede_name
             FROM 
                 docente d
             LEFT JOIN 
@@ -485,6 +487,10 @@ ipcMain.on('consultar-docente', (event) => {
                 pnf pnf ON rel.pnf = pnf.id
             LEFT JOIN 
                 status s ON d.estado = s.id
+            LEFT JOIN 
+                trayecto t ON d.trayecto = t.id
+            LEFT JOIN 
+                sede sede ON d.sede = sede.id
             LEFT JOIN
                 imagen img ON img.docente = pers.id
             GROUP BY 

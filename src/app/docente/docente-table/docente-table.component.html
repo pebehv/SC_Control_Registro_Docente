@@ -27,10 +27,10 @@
               <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'carga_acad')">
              </th>
             <th>Trayecto 
-              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'trayecto')">
+              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'trayecto_name')">
             </th>
             <th>Sede 
-              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'sede')">
+              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'sede_name')">
             </th>
             <th>Profesion-Especialidad 
               <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'profesion')">
@@ -55,12 +55,8 @@
             
             <td>{{ x.pnf }}</td>
             <td>{{ x.carga_acad }}</td>
-            <td>
-              {{getTrayecto(x.trayecto)}}
-            </td>
-            <td>
-              {{getSede(x.sede)}}
-            </td>
+            <td>{{ x.trayecto_name }}</td>
+            <td>{{ x.sede_name }}</td>
             <td>{{ x.profesion  }}</td>
             <td>{{ x.status  }}</td>
             

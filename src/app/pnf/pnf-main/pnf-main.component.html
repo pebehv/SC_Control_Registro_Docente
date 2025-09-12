@@ -3,17 +3,17 @@
     <app-sidenav></app-sidenav>
     <div class="case-main-content">
     
-        <div class="case-main-header" *ngIf="!showAddDocente">
+        <div class="case-main-header" *ngIf="!showAddDocente" style="    margin: 3% auto;">
             <h1>PNF</h1>
     
-            <div class="buscar" >
-                <app-search></app-search>
+            <div class="buscar"  >
+                <app-search style="    visibility: hidden;"></app-search>
                 <button class="add-case" (click)="showAddPNFForm()" >
                   Registrar PNF
                 </button>
                
-              </div>
             </div>
+        </div>
             <div *ngIf="!showAddDocente">
                 <app-pnf-table (onSelected)="ondataSelected($event)"></app-pnf-table>
             </div>
