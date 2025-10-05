@@ -12,6 +12,7 @@
     "electron-start": "ng build --base-href ./ && electron .",
     "electron-builder": "electron-builder",
     "electron-build": "ng build && electron ."
+    
   },
   "private": true,
   "dependencies": {
@@ -54,8 +55,9 @@
     "typescript": "~5.5.2"
   },
   "build": {
-    "appId": "Patrones de Diseño y Frameworks",
-    "productName": "Sistema de Casos de Investigación",
+    "asar": true,
+    "appId": "com.sci.sistemadedocentes",
+    "productName": "Sistema de Control de Registro de Docente",
     "directories": {
       "output": "dist"
     },
@@ -64,6 +66,16 @@
       "main.js",
       "preload.js",
       "database.db"
+    ],
+    "extraResources": [
+      {
+        "from": "database.db",
+        "to": "database.db"
+      },
+      {
+        "from": "ffmpeg.dll",
+        "to": "ffmpeg.dll"
+      }
     ],
     "win": {
       "target": "nsis"

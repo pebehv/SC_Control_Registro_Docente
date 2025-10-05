@@ -32,14 +32,41 @@ contextBridge.exposeInMainWorld('docenteAPI', {
         ipcRenderer.removeAllListeners('docente-insertado');
         ipcRenderer.on('docente-insertado', (event, response) => callback(response));
     },
-    insertPersona: (nombre, apellido, ci, email, tlf, fechaNac, sexo) => 
-        ipcRenderer.send('insertar-persona', nombre, apellido, ci, email, tlf, fechaNac, sexo),
+    insertPersona: (nombre, ci, email, tlf, fechaNac, sexo) => 
+        ipcRenderer.send('insertar-persona', nombre, ci, email, tlf, fechaNac, sexo),
       // Método para escuchar la respuesta del backend
     
     onPersonaInsertado: (callback) => {
         // Usa .removeAllListeners() para evitar la acumulación de listeners
         ipcRenderer.removeAllListeners('persona-insertado');
         ipcRenderer.on('persona-insertado', (event, response) => callback(response));
+    },
+    deleteDocente: ( docente) => 
+        ipcRenderer.send('eliminar-docente', docente),
+      // Método para escuchar la respuesta del backend
+    
+    onDocenteDelete: (callback) => {
+        // Usa .removeAllListeners() para evitar la acumulación de listeners
+        ipcRenderer.removeAllListeners('docente-eliminado');
+        ipcRenderer.on('docente-eliminado', (event, response) => callback(response));
+    },
+    deletePersona: ( docente) => 
+        ipcRenderer.send('eliminar-persona', docente),
+      // Método para escuchar la respuesta del backend
+    
+    onPersonaDelete: (callback) => {
+        // Usa .removeAllListeners() para evitar la acumulación de listeners
+        ipcRenderer.removeAllListeners('persona-eliminado');
+        ipcRenderer.on('persona-eliminado', (event, response) => callback(response));
+    },
+    deleteIMG: ( docente) => 
+        ipcRenderer.send('eliminar-img', docente),
+      // Método para escuchar la respuesta del backend
+    
+    onIMGDelete: (callback) => {
+        // Usa .removeAllListeners() para evitar la acumulación de listeners
+        ipcRenderer.removeAllListeners('img-eliminado');
+        ipcRenderer.on('img-eliminado', (event, response) => callback(response));
     },
     /* eliminarUsuario: (id) => ipcRenderer.send('eliminar-usuario', id),
     buscarUser: (user) => ipcRenderer.send('buscar-user', user),

@@ -4,6 +4,8 @@ const path = require('path');
 
 let db;
 
+
+
 app.on('ready', () => {
     const mainWindow = new BrowserWindow({
         width: 1200,
@@ -22,8 +24,15 @@ app.on('ready', () => {
     //mainWindow.setMenu(null); // Esta linea es para deshabilitar el inspeccionar , osea , la consola y eso de la web
 
     // Inicializar base de datos
-   const dbPath = path.join(__dirname, 'database.db');
-   // const dbPath = path.join(app.getPath('userData'), 'database.db');
+    //const dbPath = path.join(__dirname, 'database.db');// forma local
+    //const dbPath = path.join(app.getPath('userData'), 'database.db');
+    const dbPath = path.join(process.resourcesPath, 'database.db');//para geenrar el ejecutable
+    /*const ffmpegPath = path.join(process.resourcesPath, 'ffmpeg.dll');
+    if (!fs.existsSync(ffmpegPath)) {
+        console.error('❌ ffmpeg.dll no encontrado en:', ffmpegPath);
+    } else {
+    console.log('✅ ffmpeg.dll cargado desde:', ffmpegPath);
+    }*/
     db = new sqlite3.Database(dbPath, (err) => {
         if (err) {
             console.error(err.message);
@@ -57,7 +66,7 @@ app.on('window-all-closed', () => {
         
         tlf TEXT,
         fechaNac DATE,
-        sexo TEXT NOT NULL ,
+        sexo TEXT  ,
         email TEXT ,
         ci INTEGER
     )`);
@@ -316,6 +325,33 @@ ipcMain.on('eliminar-pnf', (event, id) => {
             event.reply('pnf-eliminado', { error: err.message });
         } else {
             event.reply('pnf-eliminado', { success: true, id });
+        }
+    });
+});
+ipcMain.on('eliminar-docente', (event, id) => {
+    db.run(`DELETE FROM docente WHERE id = ?`, [id], function(err) {
+        if (err) {
+            event.reply('docente-eliminado', { error: err.message });
+        } else {
+            event.reply('docente-eliminado', { success: true, id });
+        }
+    });
+});
+ipcMain.on('eliminar-persona', (event, id) => {
+    db.run(`DELETE FROM persona WHERE id = ?`, [id], function(err) {
+        if (err) {
+            event.reply('persona-eliminado', { error: err.message });
+        } else {
+            event.reply('persona-eliminado', { success: true, id });
+        }
+    });
+});
+ipcMain.on('eliminar-img', (event, id) => {
+    db.run(`DELETE FROM imagen WHERE docente = ?`, [id], function(err) {
+        if (err) {
+            event.reply('img-eliminado', { error: err.message });
+        } else {
+            event.reply('img-eliminado', { success: true, id });
         }
     });
 });

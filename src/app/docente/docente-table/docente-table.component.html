@@ -60,7 +60,9 @@
             <td>{{ x.profesion  }}</td>
             <td>{{ x.status  }}</td>
             
-            <td><button class="edit" (click)="editarDocente(x)">✏️</button></td>
+            <td><button class="edit" (click)="editarDocente(x)">✏️</button>
+                <button class="edit" (click)="deletedocente(x)">❌</button>
+            </td>
           </tr>
         </tbody>
       </table>

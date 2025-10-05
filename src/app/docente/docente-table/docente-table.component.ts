@@ -18,6 +18,7 @@ export class DocenteTableComponent {
   @Input() searchTerm: string = ''; // Recibe el término de búsqueda
   docente: IDocente[] = []
   filteredDocentes: IDocente[] = []; // La lista de docentes filtrada y paginada
+  filteredList: IDocente[] = []; // La lista de docentes filtrada y paginada
   docenteelected: IDocente = new IDocente() ;
   @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
 
@@ -89,7 +90,7 @@ export class DocenteTableComponent {
     const endIndex = startIndex + this.itemsPerPage;
 
     console.log('getEntidadesPaginaActual',this.filteredDocentes, startIndex, endIndex, this.filteredDocentes.slice(startIndex, endIndex))
-    this.filteredDocentes= this.docente.slice(startIndex, endIndex);
+    this.filteredDocentes= this.filteredList.slice(startIndex, endIndex);
     console.log('getEntidadesPaginaActual',this.filteredDocentes, startIndex, endIndex, this.filteredDocentes.slice(startIndex, endIndex))
     
     return this.filteredDocentes.slice(startIndex, endIndex);
@@ -184,6 +185,58 @@ export class DocenteTableComponent {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     this.filteredDocentes = filteredList.slice(start, end);
+    this.filteredList = filteredList;
     console.log("applyFiltersAndPaginate filteredDocentes", this.filteredDocentes)
+  }
+
+  deletedocente(docente: any) {
+    //this.docentes = this.docentes.filter(u => u.cedula !== docente.cedula);
+    console.log("onRowSelectDelete user", docente);
+     this.docenteService.deleteDocente(docente.id).subscribe({
+        next: (response) => {
+          // El registro fue guardado exitosamente
+          console.log('deletepnf con ID:', response);
+          this.deletePersona(docente.docente)
+          this.deleteIMG(docente.id)
+          this.refresh();
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          // Hubo un error al guardar el registro
+          console.error('Error al guardar:', err);
+        }
+      });
+  }
+  deletePersona(docente: any) {
+    //this.docentes = this.docentes.filter(u => u.cedula !== docente.cedula);
+    console.log("deletePersona user", docente);
+     this.docenteService.deletePersona(docente).subscribe({
+        next: (response) => {
+          // El registro fue guardado exitosamente
+          console.log('deletePersona con ID:', response);
+          this.refresh();
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          // Hubo un error al guardar el registro
+          console.error('Error al guardar:', err);
+        }
+      });
+  }
+  deleteIMG(docente: any) {
+    //this.docentes = this.docentes.filter(u => u.cedula !== docente.cedula);
+    console.log("deleteIMG user", docente);
+     this.docenteService.deleteIMG(docente).subscribe({
+        next: (response) => {
+          // El registro fue guardado exitosamente
+          console.log('deleteIMG con ID:', response);
+          this.refresh();
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          // Hubo un error al guardar el registro
+          console.error('Error al guardar:', err);
+        }
+      });
   }
 }

@@ -28,7 +28,7 @@ export class DocenteService {
     fechaNac:string, sexo:string): Observable<any> {
     return new Observable(observer => {
       // Envía el evento al proceso principal
-      window.docenteAPI.insertPersona(nombre, apellido, ci, email, tlf, 
+      window.docenteAPI.insertPersona(nombre, ci, email, tlf, 
         fechaNac, sexo);
 
       // Escucha la respuesta
@@ -67,6 +67,64 @@ export class DocenteService {
     });
 
   }
+
+  deletePersona(id: number): Observable<any> {
+      console.log("deletePersona", id)
+      return new Observable(observer => {
+        // Envía el evento al proceso principal
+        window.docenteAPI.deletePersona(id);
+  
+        // Escucha la respuesta
+        window.docenteAPI.onPersonaDelete((response: any) => {
+          this.ngZone.run(() => {
+            if (response.error) {
+              observer.error(response.error);
+            } else {
+              observer.next(response);
+            }
+            observer.complete();
+          });
+        });
+      });
+    }
+  deleteDocente(id: number): Observable<any> {
+      console.log("deleteDocente", id)
+      return new Observable(observer => {
+        // Envía el evento al proceso principal
+        window.docenteAPI.deleteDocente(id);
+  
+        // Escucha la respuesta
+        window.docenteAPI.onDocenteDelete((response: any) => {
+          this.ngZone.run(() => {
+            if (response.error) {
+              observer.error(response.error);
+            } else {
+              observer.next(response);
+            }
+            observer.complete();
+          });
+        });
+      });
+    }
+  deleteIMG(id: number): Observable<any> {
+      console.log("deleteIMG", id)
+      return new Observable(observer => {
+        // Envía el evento al proceso principal
+        window.docenteAPI.deleteIMG(id);
+  
+        // Escucha la respuesta
+        window.docenteAPI.onIMGDelete((response: any) => {
+          this.ngZone.run(() => {
+            if (response.error) {
+              observer.error(response.error);
+            } else {
+              observer.next(response);
+            }
+            observer.complete();
+          });
+        });
+      });
+    }
   insertarDocente(id:number, docente: number,
     carga_acad: number,
     trayecto: number,
