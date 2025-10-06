@@ -15,6 +15,8 @@ export class IDocente{
     pnf: string;
     trayecto: number;
     sede: number;
+    compo_docent: number;
+    modalidad: number;
     profesion: string;
     nombre_imagen: string;
     tipo_mime: string;
@@ -39,6 +41,8 @@ export class IDocente{
         this.pnf = '';
         this.trayecto = 0;
         this.sede = 0;
+        this.compo_docent = 0;
+        this.modalidad = 0;
         this.profesion = '';
         this.nombre_imagen = '';
         this.imagen_data = '';
@@ -65,6 +69,8 @@ export class IDocente{
         obj.pnf = color.pnf;
         obj.trayecto = color.trayecto;
         obj.sede = color.sede;
+        obj.compo_docent = color.compo_docent;
+        obj.modalidad = color.modalidad;
         obj.profesion = color.profesion;
         obj.nombre_imagen = color.nombre_imagen;
         obj.tipo_mime = color.tipo_mime;

@@ -119,23 +119,28 @@ export class DocenteTableComponent {
 
   }
 
-  calculoEdad(fecha: any){
-    const fechaActual = new Date();
-    const fechaInicio = new Date(fecha);
-
-    // Diferencia en milisegundos
-    const diferenciaEnMilisegundos = fechaActual.getTime() - fechaInicio.getTime();
-    
-    // Milisegundos en un año promedio (365.25 días)
-    const milisegundosEnUnAnio = 1000 * 60 * 60 * 24 * 365.25;
-    
-    // Cálculo de los años
-    const aniosTranscurridos = diferenciaEnMilisegundos / milisegundosEnUnAnio;
-    
-    // Mostrar el resultado
-    //console.log(`Han pasado ${aniosTranscurridos.toFixed(0)} años.`);
-
-    return aniosTranscurridos.toFixed(0)
+  calculoEdad(fecha: any, id: number, name : string){
+    if(fecha){
+  
+      console.log("Caculando edad", fecha, id,name )
+      const fechaActual = new Date();
+      const fechaInicio = new Date(fecha);
+  
+      // Diferencia en milisegundos
+      const diferenciaEnMilisegundos = fechaActual.getTime() - fechaInicio.getTime();
+      
+      // Milisegundos en un año promedio (365.25 días)
+      const milisegundosEnUnAnio = 1000 * 60 * 60 * 24 * 365.25;
+      
+      // Cálculo de los años
+      const aniosTranscurridos = diferenciaEnMilisegundos / milisegundosEnUnAnio;
+      
+      // Mostrar el resultado
+      //console.log(`Han pasado ${aniosTranscurridos.toFixed(0)} años.`);
+  
+      return aniosTranscurridos.toFixed(0)
+    }
+    return 0
   }
   // Nuevo método para manejar el cambio en los inputs de filtro
   onFilterChange(event: any, property: string) {

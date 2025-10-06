@@ -6,3 +6,15 @@
     width: 100%;
     height: 100%;
 }
+
+.input-check{
+    width: auto;
+}
+
+.label-check{
+    display: inline;
+}
+
+.check{
+    margin-bottom: 10px;
+}

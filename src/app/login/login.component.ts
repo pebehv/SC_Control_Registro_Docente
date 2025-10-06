@@ -44,12 +44,12 @@ export class LoginComponent {
                 if (rol === 1) {
                     console.log('El usuario tiene rol de administrador.');
                       // Redireccionar
-                     this.router.navigate(['/usuarios']);
-                } else {
+                     this.router.navigate(['/docentes']);
+                } /*else {
                     console.log('El usuario tiene otro rol.');
                       // Redireccionar
                     this.router.navigate(['/casos']);
-                }
+                }*/
             } else {
                 console.log('No se pudo obtener el rol del usuario.');
             }

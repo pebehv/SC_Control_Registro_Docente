@@ -94,6 +94,8 @@ export class DocenteAddComponent {
           profesion: [null, []],
           estado: [null, []],
           imagen_data: [null, []],
+          compo_docent: [0, []],
+          modalidad: [null, []],
           myDropdownControl: [null, []],
           
       });
@@ -119,6 +121,8 @@ export class DocenteAddComponent {
       sede: this.docenteSelected.sede,
       profesion: this.docenteSelected.profesion,
       imagen_data: this.docenteSelected.imagen_data,
+      compo_docent: this.docenteSelected.compo_docent,
+      modalidad: this.docenteSelected.modalidad,
       estado: this.docenteSelected.estado,
       
     });
@@ -194,7 +198,7 @@ export class DocenteAddComponent {
     this.loading = true;
     console.log("****onSubmit****",this.valForm)
     if(this.valForm.value['id'] != 0){
-      console.log("actualizar********",this.valForm)
+     // console.log("actualizar********",this.valForm)
 
       this.docenteService.actualizarPersona(
         this.valForm.value['docente'],
@@ -219,7 +223,9 @@ export class DocenteAddComponent {
           this.valForm.value['profesion'],
           this.valForm.value['carga_resp'],
           this.valForm.value['observ'],
-          this.valForm.value['estado']  )   
+          this.valForm.value['estado'] ,
+          this.valForm.value['compo_docent'] ? 1:0,
+          this.valForm.value['modalidad'] )   
         
       },
       error: (err) => {
@@ -252,7 +258,9 @@ export class DocenteAddComponent {
           this.valForm.value['profesion'],
           this.valForm.value['carga_resp'],
           this.valForm.value['observ'],
-          this.valForm.value['estado']  )     
+          this.valForm.value['estado'],
+          this.valForm.value['compo_docent'] ? 1:0,
+          this.valForm.value['modalidad']  )     
         
       },
       error: (err) => {
@@ -292,9 +300,13 @@ export class DocenteAddComponent {
     profesion:string,
     carga_resp:string,
     observ:string,
-    estado:number){
+    estado:number,
+    compo_docent :number,
+    modalidad:number
+  ){
       // Llama al servicio e inserta los datos
-    this.docenteService.insertarDocente(st, docente, carga_acad,trayecto,sede,profesion,carga_resp,observ,  estado).subscribe({
+    this.docenteService.insertarDocente(st, docente, carga_acad,trayecto,sede,profesion,carga_resp,
+      observ,  estado, compo_docent, modalidad).subscribe({
       next: (response) => {
         // El registro fue guardado exitosamente
         console.log('Docente guardado con ID:', response);

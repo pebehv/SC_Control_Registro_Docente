@@ -24,9 +24,9 @@ app.on('ready', () => {
     //mainWindow.setMenu(null); // Esta linea es para deshabilitar el inspeccionar , osea , la consola y eso de la web
 
     // Inicializar base de datos
-    //const dbPath = path.join(__dirname, 'database.db');// forma local
+    const dbPath = path.join(__dirname, 'database.db');// forma local
     //const dbPath = path.join(app.getPath('userData'), 'database.db');
-    const dbPath = path.join(process.resourcesPath, 'database.db');//para geenrar el ejecutable
+    //const dbPath = path.join(process.resourcesPath, 'database.db');//para geenrar el ejecutable
     /*const ffmpegPath = path.join(process.resourcesPath, 'ffmpeg.dll');
     if (!fs.existsSync(ffmpegPath)) {
         console.error('❌ ffmpeg.dll no encontrado en:', ffmpegPath);
@@ -82,6 +82,8 @@ app.on('window-all-closed', () => {
         profesion TEXT ,
         carga_resp TEXT ,
         observ TEXT ,
+        compo_docent INTEGER ,
+        modalidad INTEGER ,
         FOREIGN KEY (trayecto) REFERENCES trayecto(id),
         FOREIGN KEY (docente) REFERENCES persona(id),
         FOREIGN KEY (estado) REFERENCES status(id)
@@ -440,10 +442,10 @@ ipcMain.on('actualizar-image', (event, { id, value,filetype, filename, docente
 
 // Manejar la inserción de docentes
 ipcMain.on('insertar-docente', (event, docente, carga_acad, trayecto, 
-        profesion,estado,sede, carga_resp,observ) => {
+        profesion,estado,sede, carga_resp,observ, compo_docent, modalidad) => {
     console.log('insertar-docente', docente, trayecto)
     db.run(`INSERT INTO docente (docente,  carga_acad, trayecto, 
-        profesion,estado, sede, carga_resp,observ) VALUES (?, ?, ?,?,?, ?,?,?)`, [docente, carga_acad, trayecto, 
+        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad) VALUES (?, ?,?, ?, ?,?,?, ?,?,?)`, [docente, carga_acad, trayecto, 
         profesion,estado, sede, carga_resp,observ], function(err) {
         if (err) {
             event.reply('docente-insertado', { error: err.message });
@@ -456,9 +458,9 @@ ipcMain.on('insertar-docente', (event, docente, carga_acad, trayecto,
 // Manejar la actualización de entidades
 ipcMain.on('actualizar-docente', (event, {
      docente,  carga_acad, trayecto, 
-        profesion,estado, sede, carga_resp,observ
+        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad
 }) => {
-    console.log('Actualizando docente con ID:', docente, carga_acad, carga_resp, trayecto);
+    console.log('Actualizando docente con ID:', docente, compo_docent, modalidad);
     db.run(`UPDATE docente SET
         
         carga_acad = ?,
@@ -467,10 +469,12 @@ ipcMain.on('actualizar-docente', (event, {
         estado = ?,
         sede = ?,
         carga_resp = ?,
-        observ = ?
+        observ = ?,
+        compo_docent = ?,
+        modalidad = ?
         WHERE docente = ?`,
         [ carga_acad, trayecto, 
-        profesion,estado,sede, carga_resp,observ,docente ], function(err) {
+        profesion,estado,sede, carga_resp,observ,compo_docent, modalidad, docente ], function(err) {
             if (err) {
                 console.error('Error al actualizar docente:', err.message);
                 event.reply('docente-actualizada', { error: err.message });
@@ -534,7 +538,7 @@ ipcMain.on('consultar-docente', (event) => {
         if (err) {
             event.reply('docente-consultados', { error: err.message });
         } else {
-            console.log('docente-consultados', rows);
+            //console.log('docente-consultados', rows);
             event.reply('docente-consultados', { data: rows });
         }
     });

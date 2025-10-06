@@ -132,13 +132,15 @@ export class DocenteService {
     profesion:string,
     carga_resp:string,
     observ:string,
-    estado:number): Observable<any> {
+    estado:number,
+    compo_docent :number,
+    modalidad:number): Observable<any> {
       if(id == 0){ 
 
         return new Observable(observer => {
           // Envía el evento al proceso principal
           window.docenteAPI.insertDocente(docente,  carga_acad, trayecto, 
-            profesion,estado, sede, carga_resp,observ);
+            profesion,estado, sede, carga_resp,observ, compo_docent, modalidad);
     
           // Escucha la respuesta
           window.docenteAPI.onDocenteInsertado((response: any) => {
@@ -157,7 +159,7 @@ export class DocenteService {
         return new Observable(observer => {
           // Envía el evento al proceso principal
           window.docenteAPI.actualizarDocente(docente,  carga_acad, trayecto, 
-            profesion,estado, sede, carga_resp,observ);
+            profesion,estado, sede, carga_resp,observ, compo_docent, modalidad);
     
           // Escucha la respuesta
         (window as any).docenteAPI.ipcRenderer.on('docente-actualizada', 

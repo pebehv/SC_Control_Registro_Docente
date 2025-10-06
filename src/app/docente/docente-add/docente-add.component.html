@@ -110,7 +110,13 @@
               <!-- Add options here -->
           </select>
         </div>
-
+        <div class="form-check form-switch check">
+          <input class="form-check-input input-check" type="checkbox" value="" id="compo_docent" switch 
+          name="compo_docent " formControlName="compo_docent">
+          <label class="form-check-label label-check" for="compo_docent">
+            Compoente Docente 
+          </label>
+        </div>
         <div class="form-group">
           
           <label for="pnf">PNF</label>
@@ -139,6 +145,18 @@
         </div>
     
 
+        <div class="form-group">
+          <label for="modalidad">Modalidad</label>
+          <select 
+            id="modalidad" formControlName="modalidad"
+            name="modalidad">
+              <option value="1">Semana</option>
+              <option value="2">Fines de Semana</option>
+              <option value="3">Mixto</option>
+              
+              <!-- Add options here -->
+          </select>
+        </div>
         <div class="form-group">
           <label for="trayecto">Trayecto</label>
           <select 
