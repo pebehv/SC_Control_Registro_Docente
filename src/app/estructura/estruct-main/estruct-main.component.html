@@ -22,13 +22,15 @@
               
              
               <div *ngIf="!showAddDocente">
-                <app-docente-table (onSelected)="ondataSelected($event) "></app-docente-table>
+                <app-estruct-table (onSelected)="ondataSelected($event) "></app-estruct-table>
               </div>
-              <div *ngIf="showAddDocente" >
-                <app-docente-add (goBack)="hideAddDocenteForm()" [docenteSelected]="dataSelected"></app-docente-add>
-              </div>
-             
-                <!--
+              
+              <!--
+                <div *ngIf="showAddDocente" >
+                  <app-docente-add (goBack)="hideAddDocenteForm()" [docenteSelected]="dataSelected"></app-docente-add>
+                </div>
+
+                
               <div *ngIf="showAddCase" >
                 <app-form-case (goBack)="hideAddUserForm()"
                   [usuarioSelected]="usuarioSelected" 
