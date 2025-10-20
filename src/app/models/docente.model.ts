@@ -17,6 +17,8 @@ export class IDocente{
     sede: number;
     compo_docent: number;
     modalidad: number;
+    estructura_bool: number;
+    docent_boolean: number;
     profesion: string;
     nombre_imagen: string;
     tipo_mime: string;
@@ -43,6 +45,8 @@ export class IDocente{
         this.sede = 0;
         this.compo_docent = 0;
         this.modalidad = 0;
+        this.estructura_bool = 0;
+        this.docent_boolean = 0;
         this.profesion = '';
         this.nombre_imagen = '';
         this.imagen_data = '';
@@ -71,6 +75,8 @@ export class IDocente{
         obj.sede = color.sede;
         obj.compo_docent = color.compo_docent;
         obj.modalidad = color.modalidad;
+        obj.docent_boolean = color.docent_boolean;
+        obj.estructura_bool = color.estructura_bool;
         obj.profesion = color.profesion;
         obj.nombre_imagen = color.nombre_imagen;
         obj.tipo_mime = color.tipo_mime;

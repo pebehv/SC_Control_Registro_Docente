@@ -4,7 +4,7 @@
     <div class="case-main-content">
     
         <div class="case-main-header" *ngIf="!showAddDocente" style="    margin: 3% auto;">
-            <h1>Docentes</h1>
+            <h1>Estructura</h1>
     
             <!--div class="buscar" >
                 <app-search></app-search>
@@ -14,7 +14,7 @@
                
               </div-->
               <button class="add-case" (click)="showAddDocenteForm()">
-                  Registrar Docente
+                  Registrar
               </button>
         </div>
 
@@ -25,11 +25,11 @@
                 <app-estruct-table (onSelected)="ondataSelected($event) "></app-estruct-table>
               </div>
               
+              <div *ngIf="showAddDocente" >
+                <app-estruct-add (goBack)="hideAddDocenteForm()" [docenteSelected]="dataSelected"></app-estruct-add>
+              </div>
+              
               <!--
-                <div *ngIf="showAddDocente" >
-                  <app-docente-add (goBack)="hideAddDocenteForm()" [docenteSelected]="dataSelected"></app-docente-add>
-                </div>
-
                 
               <div *ngIf="showAddCase" >
                 <app-form-case (goBack)="hideAddUserForm()"

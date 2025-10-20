@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { EstructTableComponent } from './estruct-table/estruct-table.component';
+import { EstructAddComponent } from './estruct-add/estruct-add.component';
 
 const routes: Routes = [
     {
@@ -18,7 +19,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [EstructMainComponent, EstructTableComponent],
+  declarations: [EstructMainComponent, EstructTableComponent, EstructAddComponent],
   imports: [
     CommonModule,
     SidenavComponent, 

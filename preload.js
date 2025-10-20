@@ -22,9 +22,9 @@ contextBridge.exposeInMainWorld('myAPI', {
 
 contextBridge.exposeInMainWorld('docenteAPI', {
     insertDocente: (docente, carga_acad, trayecto,
-        profesion,estado,sede, carga_resp,observ,compo_docent, modalidad ) => 
+        profesion,estado,sede, carga_resp,observ,compo_docent, modalidad, estructura_bool, docent_boolean ) => 
         ipcRenderer.send('insertar-docente', docente, carga_acad, trayecto, 
-        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad),
+        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad, estructura_bool, docent_boolean),
         // Método para escuchar la respuesta del backend
     // 'on' es el prefijo para los listeners de eventos
     onDocenteInsertado: (callback) => {
@@ -78,9 +78,9 @@ contextBridge.exposeInMainWorld('docenteAPI', {
     actualizarPersona: (id,nombre, apellido, ci, email, tlf, fechaNac, sexo) => 
         ipcRenderer.send('actualizar-persona', {id, nombre, apellido, ci, email, tlf, fechaNac, sexo }),
     actualizarDocente: ( docente,  carga_acad, trayecto, 
-        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad) => 
+        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad, estructura_bool, docent_boolean) => 
         ipcRenderer.send('actualizar-docente', { docente,  carga_acad, trayecto, 
-        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad}),
+        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad, estructura_bool, docent_boolean }),
     
     ipcRenderer: {
         send: (channel, data) => ipcRenderer.send(channel, data),

@@ -22,6 +22,14 @@
           </div>        
           <input type="file" accept="image/*" class="d-none" #fileImage (change)="sendImage($event)">
         </div>
+        
+        <div class="form-check form-switch check">
+          <input class="form-check-input input-check" type="checkbox" value="" id="estructura_bool" switch 
+          name="estructura_bool " formControlName="estructura_bool">
+          <label class="form-check-label label-check" for="estructura_bool">
+            Estructura 
+          </label>
+        </div>
         <div class="form-group">
           <label for="nombre">Nombre Completo *</label>
           <input

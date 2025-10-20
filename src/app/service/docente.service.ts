@@ -134,13 +134,16 @@ export class DocenteService {
     observ:string,
     estado:number,
     compo_docent :number,
-    modalidad:number): Observable<any> {
+    modalidad:number,
+    estructura_bool:number,
+    docent_boolean:number,
+  ): Observable<any> {
       if(id == 0){ 
 
         return new Observable(observer => {
           // Envía el evento al proceso principal
           window.docenteAPI.insertDocente(docente,  carga_acad, trayecto, 
-            profesion,estado, sede, carga_resp,observ, compo_docent, modalidad);
+            profesion,estado, sede, carga_resp,observ, compo_docent, modalidad, estructura_bool, docent_boolean);
     
           // Escucha la respuesta
           window.docenteAPI.onDocenteInsertado((response: any) => {
@@ -159,7 +162,7 @@ export class DocenteService {
         return new Observable(observer => {
           // Envía el evento al proceso principal
           window.docenteAPI.actualizarDocente(docente,  carga_acad, trayecto, 
-            profesion,estado, sede, carga_resp,observ, compo_docent, modalidad);
+            profesion,estado, sede, carga_resp,observ, compo_docent, modalidad, estructura_bool, docent_boolean);
     
           // Escucha la respuesta
         (window as any).docenteAPI.ipcRenderer.on('docente-actualizada', 
@@ -292,6 +295,19 @@ export class DocenteService {
       (window as any).docenteAPI.ipcRenderer.send('consultar-docente');
   
       (window as any).docenteAPI.ipcRenderer.on('docente-consultados', (event: any, arg: { error: any; data: any[]; }) => {
+          if (arg.error) {
+              console.log('error en docnetes');
+              console.error(arg.error);
+          } else {
+            console.log("consulta", arg)
+              callback(arg.data);
+          }
+      });
+  }
+  public consultarEstructura(callback: (rows: any[]) => void) {
+      (window as any).docenteAPI.ipcRenderer.send('consultar-estructura');
+  
+      (window as any).docenteAPI.ipcRenderer.on('estructura-consultados', (event: any, arg: { error: any; data: any[]; }) => {
           if (arg.error) {
               console.log('error en docnetes');
               console.error(arg.error);

@@ -12,7 +12,6 @@
     "electron-start": "ng build --base-href ./ && electron .",
     "electron-builder": "electron-builder",
     "electron-build": "ng build && electron ."
-    
   },
   "private": true,
   "dependencies": {
@@ -34,6 +33,7 @@
     "rxjs": "~7.8.0",
     "sqlite3": "^5.1.7",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
@@ -41,6 +41,7 @@
     "@angular/cli": "^18.2.12",
     "@angular/compiler-cli": "^18.2.0",
     "@types/jasmine": "~5.1.0",
+    "@types/xlsx": "^0.0.35",
     "autoprefixer": "^10.4.20",
     "electron": "^34.2.0",
     "electron-builder": "^25.1.8",

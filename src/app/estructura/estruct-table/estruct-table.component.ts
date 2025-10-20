@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { IDocente } from '../../models/docente.model';
 import { DocenteService } from '../../service/docente.service';
+import { ExcelService } from '../../service/excel.service';
 
 @Component({
   selector: 'app-estruct-table',
@@ -24,6 +25,7 @@ totalPages: number = 7;
 
   constructor(
     private docenteService: DocenteService,
+    private excelService: ExcelService,
     private cdr: ChangeDetectorRef  
   ){} 
 
@@ -34,7 +36,7 @@ totalPages: number = 7;
   refresh(){
 
     console.log("refresh DocenteTableComponent")
-    this.docenteService.consultarDocente((rows:any[]) => {
+    this.docenteService.consultarEstructura((rows:any[]) => {
       this.docente = rows;
       this.applyFiltersAndPaginate();
       console.log(this.docente);
@@ -114,6 +116,29 @@ totalPages: number = 7;
     return ''
 
   }
+  calcularEdad(fechaNacimiento: string | Date): number {
+    // Asegúrate de que la fechaNac sea un objeto Date
+    const fechaNac = new Date(fechaNacimiento);
+    const hoy = new Date();
+
+    // 1. Restar los años (esto da una edad preliminar, a veces +1)
+    let edad = hoy.getFullYear() - fechaNac.getFullYear();
+
+    // 2. Ajustar por el mes y día para obtener la edad completa
+    
+    // Obtener el mes de nacimiento (0 = Enero, 11 = Diciembre)
+    const mesNacimiento = fechaNac.getMonth();
+    // Obtener el mes actual
+    const mesActual = hoy.getMonth();
+
+    // Comprobar si el mes actual es ANTES del mes de nacimiento,
+    // O si estamos en el MISMO mes pero el día actual es ANTES del día de nacimiento.
+    if (mesActual < mesNacimiento || (mesActual === mesNacimiento && hoy.getDate() < fechaNac.getDate())) {
+      edad--; // Restar 1 año porque aún no ha cumplido años este año.
+    }
+
+    return edad;
+  }
 
   calculoEdad(fecha: any, id: number, name : string){
     if(fecha){
@@ -121,20 +146,23 @@ totalPages: number = 7;
       console.log("Caculando edad", fecha, id,name )
       const fechaActual = new Date();
       const fechaInicio = new Date(fecha);
+      
+      // 1. Restar los años (esto da una edad preliminar, a veces +1)
+      let edad = fechaActual.getFullYear() - fechaInicio.getFullYear();
+      
+      // Obtener el mes de nacimiento (0 = Enero, 11 = Diciembre)
+      const mesNacimiento = fechaInicio.getMonth();
+      // Obtener el mes actual
+      const mesActual = fechaActual.getMonth();
   
-      // Diferencia en milisegundos
-      const diferenciaEnMilisegundos = fechaActual.getTime() - fechaInicio.getTime();
-      
-      // Milisegundos en un año promedio (365.25 días)
-      const milisegundosEnUnAnio = 1000 * 60 * 60 * 24 * 365.25;
-      
-      // Cálculo de los años
-      const aniosTranscurridos = diferenciaEnMilisegundos / milisegundosEnUnAnio;
-      
-      // Mostrar el resultado
-      //console.log(`Han pasado ${aniosTranscurridos.toFixed(0)} años.`);
+      // Comprobar si el mes actual es ANTES del mes de nacimiento,
+      // O si estamos en el MISMO mes pero el día actual es ANTES del día de nacimiento.
+      if (mesActual < mesNacimiento || (mesActual === mesNacimiento && fechaActual.getDate() < fechaInicio.getDate())) {
+        edad--; // Restar 1 año porque aún no ha cumplido años este año.
+      }
   
-      return aniosTranscurridos.toFixed(0)
+      return edad;
+     
     }
     return 0
   }
@@ -193,6 +221,13 @@ totalPages: number = 7;
   deletedocente(docente: any) {
     //this.docentes = this.docentes.filter(u => u.cedula !== docente.cedula);
     console.log("onRowSelectDelete user", docente);
+
+    const respuesta = confirm("¿Estás seguro de que quieres realizar esta acción?");
+
+    if (respuesta) {
+      // El usuario hizo clic en ACEPTAR (Sí)
+      alert("¡Acción confirmada!");
+      
      this.docenteService.deleteDocente(docente.id).subscribe({
         next: (response) => {
           // El registro fue guardado exitosamente
@@ -207,6 +242,10 @@ totalPages: number = 7;
           console.error('Error al guardar:', err);
         }
       });
+    } else {
+      // El usuario hizo clic en CANCELAR (No)
+      alert("Acción cancelada.");
+    }
   }
   deletePersona(docente: any) {
     //this.docentes = this.docentes.filter(u => u.cedula !== docente.cedula);
@@ -240,5 +279,32 @@ totalPages: number = 7;
         }
       });
   }
-}
 
+  generarDataExportar(): any[] {
+    return this.docente.map(docente => ({
+      Cédula: docente.ci,
+      Nombre: docente.nombre,  
+      Teléfono: docente.tlf,  
+      Fecha_Nacimiento: docente.fechaNac,
+      Edad: this.calculoEdad(docente.fechaNac, docente.id, docente.nombre),  
+      Sexo: docente.sexo,
+      Email: docente.email,
+      Cargo_de_Responsabilidad: docente.carga_resp,  
+      PNF: docente.pnf,
+      Carga_Académica: docente.carga_acad,  
+      Trayecto: this.getTrayecto(docente.trayecto),  
+      Sede: this.getSede(docente.sede),
+      Profesión: docente.profesion,
+      Estado: docente.status
+    }));
+  }
+
+
+
+
+  exportarDocentes(): void {
+    // Llama al servicio con tus datos y el nombre deseado para el archivo
+    console.log("exportarDocentes", this.docente);
+    this.excelService.exportAsExcelFile(this.generarDataExportar(), 'Lista_Docentes');
+  }
+}

@@ -84,6 +84,8 @@ app.on('window-all-closed', () => {
         observ TEXT ,
         compo_docent INTEGER ,
         modalidad INTEGER ,
+        docent_boolean INTEGER ,
+        estructura_bool INTEGER ,
         FOREIGN KEY (trayecto) REFERENCES trayecto(id),
         FOREIGN KEY (docente) REFERENCES persona(id),
         FOREIGN KEY (estado) REFERENCES status(id)
@@ -442,11 +444,11 @@ ipcMain.on('actualizar-image', (event, { id, value,filetype, filename, docente
 
 // Manejar la inserción de docentes
 ipcMain.on('insertar-docente', (event, docente, carga_acad, trayecto, 
-        profesion,estado,sede, carga_resp,observ, compo_docent, modalidad) => {
+        profesion,estado,sede, carga_resp,observ, compo_docent, modalidad,estructura_bool, docent_boolean) => {
     console.log('insertar-docente', docente, trayecto)
     db.run(`INSERT INTO docente (docente,  carga_acad, trayecto, 
-        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad) VALUES (?, ?,?, ?, ?,?,?, ?,?,?)`, [docente, carga_acad, trayecto, 
-        profesion,estado, sede, carga_resp,observ], function(err) {
+        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad, estructura_bool,docent_boolean) VALUES (?, ?,?, ?, ?,?,?, ?,?,?,?,?)`, [docente, carga_acad, trayecto, 
+        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad,estructura_bool,docent_boolean ], function(err) {
         if (err) {
             event.reply('docente-insertado', { error: err.message });
         } else {
@@ -458,7 +460,7 @@ ipcMain.on('insertar-docente', (event, docente, carga_acad, trayecto,
 // Manejar la actualización de entidades
 ipcMain.on('actualizar-docente', (event, {
      docente,  carga_acad, trayecto, 
-        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad
+        profesion,estado, sede, carga_resp,observ, compo_docent, modalidad, estructura_bool,docent_boolean
 }) => {
     console.log('Actualizando docente con ID:', docente, compo_docent, modalidad);
     db.run(`UPDATE docente SET
@@ -471,10 +473,12 @@ ipcMain.on('actualizar-docente', (event, {
         carga_resp = ?,
         observ = ?,
         compo_docent = ?,
-        modalidad = ?
+        modalidad = ?,
+        estructura_bool = ?,
+        docent_boolean = ?
         WHERE docente = ?`,
         [ carga_acad, trayecto, 
-        profesion,estado,sede, carga_resp,observ,compo_docent, modalidad, docente ], function(err) {
+        profesion,estado,sede, carga_resp,observ,compo_docent, modalidad, estructura_bool, docent_boolean, docente ], function(err) {
             if (err) {
                 console.error('Error al actualizar docente:', err.message);
                 event.reply('docente-actualizada', { error: err.message });
@@ -532,6 +536,8 @@ ipcMain.on('consultar-docente', (event) => {
                 sede sede ON d.sede = sede.id
             LEFT JOIN
                 imagen img ON img.docente = pers.id
+            WHERE 
+                d.docent_boolean = 1
             GROUP BY 
                 d.id`, 
     [], (err, rows) => {
@@ -540,6 +546,52 @@ ipcMain.on('consultar-docente', (event) => {
         } else {
             //console.log('docente-consultados', rows);
             event.reply('docente-consultados', { data: rows });
+        }
+    });
+});
+// Manejar la consulta de C.I
+ipcMain.on('consultar-estructura', (event) => {
+    // La consulta SQL con GROUP_CONCAT y el nuevo JOIN
+    db.all(`SELECT 
+                d.*,
+                pers.nombre,
+                pers.tlf,
+                pers.fechaNac,
+                pers.sexo,
+                pers.email,
+                pers.ci,
+                img.tipo_mime,
+                GROUP_CONCAT(pnf.name) AS pnf,
+                s.name AS status,
+                t.name AS trayecto_name,
+                sede.name AS sede_name
+            FROM 
+                docente d
+            LEFT JOIN 
+                persona pers ON d.docente = pers.id 
+            LEFT JOIN 
+                rela_pnf rel ON d.docente = rel.docente 
+            LEFT JOIN 
+                pnf pnf ON rel.pnf = pnf.id
+            LEFT JOIN 
+                status s ON d.estado = s.id
+            LEFT JOIN 
+                trayecto t ON d.trayecto = t.id
+            LEFT JOIN 
+                sede sede ON d.sede = sede.id
+            LEFT JOIN
+                imagen img ON img.docente = pers.id
+            WHERE 
+                d.estructura_bool = 1
+            
+            GROUP BY 
+                d.id`, 
+    [], (err, rows) => {
+        if (err) {
+            event.reply('estructura-consultados', { error: err.message });
+        } else {
+            console.log('estructura-consultados', rows);
+            event.reply('estructura-consultados', { data: rows });
         }
     });
 });

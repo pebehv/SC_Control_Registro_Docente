@@ -21,7 +21,7 @@ export class EstructMainComponent {
     this.showAddDocente = true;
     this.cdr.detectChanges();
     //
-    +console.log("click");
+    console.log("click");
   }
   // Función para manejar la búsqueda (si es necesario)
   /*onSearch(query: string) {

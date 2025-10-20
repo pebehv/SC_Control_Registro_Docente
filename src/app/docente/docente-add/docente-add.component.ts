@@ -96,6 +96,8 @@ export class DocenteAddComponent {
           imagen_data: [null, []],
           compo_docent: [0, []],
           modalidad: [null, []],
+          docent_boolean: [1, []],
+          estructura_bool: [null, []],
           myDropdownControl: [null, []],
           
       });
@@ -124,6 +126,7 @@ export class DocenteAddComponent {
       compo_docent: this.docenteSelected.compo_docent,
       modalidad: this.docenteSelected.modalidad,
       estado: this.docenteSelected.estado,
+      estructura_bool: this.docenteSelected.estructura_bool,
       
     });
   }
@@ -225,7 +228,10 @@ export class DocenteAddComponent {
           this.valForm.value['observ'],
           this.valForm.value['estado'] ,
           this.valForm.value['compo_docent'] ? 1:0,
-          this.valForm.value['modalidad'] )   
+          this.valForm.value['modalidad'],
+          this.valForm.value['estructura_bool'] ? 1:0,
+          1
+         )   
         
       },
       error: (err) => {
@@ -260,7 +266,9 @@ export class DocenteAddComponent {
           this.valForm.value['observ'],
           this.valForm.value['estado'],
           this.valForm.value['compo_docent'] ? 1:0,
-          this.valForm.value['modalidad']  )     
+          this.valForm.value['modalidad'],
+          this.valForm.value['estructura_bool'] ? 1:0,
+          1  )     
         
       },
       error: (err) => {
@@ -302,11 +310,13 @@ export class DocenteAddComponent {
     observ:string,
     estado:number,
     compo_docent :number,
-    modalidad:number
+    modalidad:number,
+    estructura_bool:number,
+    docent_boolean:number
   ){
       // Llama al servicio e inserta los datos
     this.docenteService.insertarDocente(st, docente, carga_acad,trayecto,sede,profesion,carga_resp,
-      observ,  estado, compo_docent, modalidad).subscribe({
+      observ,  estado, compo_docent, modalidad, estructura_bool, docent_boolean).subscribe({
       next: (response) => {
         // El registro fue guardado exitosamente
         console.log('Docente guardado con ID:', response);
