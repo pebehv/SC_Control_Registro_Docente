@@ -6,21 +6,21 @@
 <app-sidenav></app-sidenav>
 <div class="case-main-content">
 
-    <div class="user-main-header">
+    <div class="case-main-header">
         <h1>Usuarios</h1>
 
-        <div class="buscar" *ngIf="!showAddUser">
+        <!--div class="buscar" *ngIf="!showAddUser">
             <app-search (searchEvent)="onSearch($event)"></app-search>
             <button class="add-user" (click)="showAddUserForm()" >
               Agregar usuario
             </button>
-          </div>
+          </div-->
     </div>
           
           <!-- Mostrar la tabla solo si showAddUser es false -->
-          <div *ngIf="!showAddUser">
+          <div *ngIf="!showAddUser" class="table-container_">
             <app-table-users 
-            (onSelected)="onUserSelected($event)"></app-table-users>
+            (onSelected)="onUserSelected($event)" (eventoParaElPadre)="showAddUserForm()"></app-table-users>
           </div>
           
           <!-- Mostrar el formulario add-user solo si showAddUser es true -->

@@ -1,11 +1,18 @@
 <div class="logout">
 
+      <button class="btn btn-success register" (click)="notificarCrearDocente()">
+        Registrar
+    </button>
+
     <button (click)="exportarDocentes()" class="btn btn-success">
         Exportar a Excel (.xlsx)
     </button>
 </div>
 
 <div class="table-container">
+  <div class="table-scroll">
+
+  
     <table>
         <thead>
           <tr>
@@ -73,6 +80,7 @@
           </tr>
         </tbody>
       </table>
+    </div>
       <div class="pagination">
         <span>Mostrando {{filteredDocentes.length}} de {{filteredList.length}} registros</span>
         <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>

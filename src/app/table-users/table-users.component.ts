@@ -11,6 +11,9 @@ import { IUser } from '../models/user.model';
   styleUrls: ['./table-users.component.css']
 })
 export class TableUsersComponent {
+    @Output()
+  eventoParaElPadre: EventEmitter<string> = new EventEmitter<string>();
+
   @Input() searchTerm: string = ''; // Recibe el término de búsqueda
   usuarios: IUser[] = [];
   totalPages: number = 1;
@@ -125,6 +128,11 @@ export class TableUsersComponent {
       this.currentPage++;
     }
     this.cdr.detectChanges();
+  }
+
+  notificarCrearDocente() {
+    // 3. Emitir el evento (opcionalmente puedes enviar datos)
+    this.eventoParaElPadre.emit();
   }
 
 }

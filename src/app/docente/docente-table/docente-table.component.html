@@ -1,4 +1,8 @@
 <div class="logout">
+  
+    <button class="btn btn-success register" (click)="notificarCrearDocente()">
+        Registrar
+    </button>
 
     <button (click)="exportarDocentes()" class="btn btn-success">
         Exportar a Excel (.xlsx)
@@ -6,73 +10,75 @@
 </div>
 
 <div class="table-container">
-    <table>
-        <thead>
-          <tr>
-            <th>CI
-               <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'ci')">
-            </th>
-            <th>Docente
-              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'nombre')">
-            </th>
-            <th>Telefono
-              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'tlf')">
-            </th>
-            <th>Fecha de Nacimiento</th>
-            <th>Edad </th>
-            <th>Sexo
-              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'sexo')">
-            </th>
-            <th>Correo 
-              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'email')">
-            </th>
-            <th>Cargo de Responsabilidad</th>
-            <th>PNF 
-              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'pnf')">
-            </th>
-            <th>Carga Académica Nominal 
-              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'carga_acad')">
-             </th>
-            <th>Trayecto 
-              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'trayecto_name')">
-            </th>
-            <th>Sede 
-              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'sede_name')">
-            </th>
-            <th>Profesion-Especialidad 
-              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'profesion')">
-            </th>
-            <th>Estado 
-              <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'status')">
-            </th>
-            <th>Acciones</th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let x of filteredDocentes">
-            <td >{{ x.ci }}</td>
-            <td>{{ x.nombre }}</td>
-            <td>{{ x.tlf }}</td>
-            <td>{{ x.fechaNac }}</td>
-            <td>{{ calculoEdad(x.fechaNac, x.id, x.nombre)}}</td>
-            <td>{{ x.sexo }}</td>
-            <td>{{ x.email }}</td>
-            <td>{{ x.carga_resp }}</td>
-            
-            <td>{{ x.pnf }}</td>
-            <td>{{ x.carga_acad }}</td>
-            <td>{{ x.trayecto_name }}</td>
-            <td>{{ x.sede_name }}</td>
-            <td>{{ x.profesion  }}</td>
-            <td>{{ x.status  }}</td>
-            
-            <td><button class="edit" (click)="editarDocente(x)">✏️</button>
-                <button class="edit" (click)="deletedocente(x)">❌</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="table-scroll">
+      <table>
+          <thead>
+            <tr>
+              <th>CI
+                <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'ci')">
+              </th>
+              <th>Docente
+                <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'nombre')">
+              </th>
+              <th>Telefono
+                <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'tlf')">
+              </th>
+              <th>Fecha de Nacimiento</th>
+              <th>Edad </th>
+              <th>Sexo
+                <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'sexo')">
+              </th>
+              <th>Correo 
+                <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'email')">
+              </th>
+              <th>Cargo de Responsabilidad</th>
+              <th>PNF 
+                <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'pnf')">
+              </th>
+              <th>Carga Académica Nominal 
+                <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'carga_acad')">
+              </th>
+              <th>Trayecto 
+                <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'trayecto_name')">
+              </th>
+              <th>Sede 
+                <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'sede_name')">
+              </th>
+              <th>Profesion-Especialidad 
+                <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'profesion')">
+              </th>
+              <th>Estado 
+                <input clas type="text" placeholder="Filtrar..." (input)="onFilterChange($event, 'status')">
+              </th>
+              <th>Acciones</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let x of filteredDocentes">
+              <td >{{ x.ci }}</td>
+              <td>{{ x.nombre }}</td>
+              <td>{{ x.tlf }}</td>
+              <td>{{ x.fechaNac }}</td>
+              <td>{{ calculoEdad(x.fechaNac, x.id, x.nombre)}}</td>
+              <td>{{ x.sexo }}</td>
+              <td>{{ x.email }}</td>
+              <td>{{ x.carga_resp }}</td>
+              
+              <td>{{ x.pnf }}</td>
+              <td>{{ x.carga_acad }}</td>
+              <td>{{ x.trayecto_name }}</td>
+              <td>{{ x.sede_name }}</td>
+              <td>{{ x.profesion  }}</td>
+              <td>{{ x.status  }}</td>
+              
+              <td><button class="edit" (click)="editarDocente(x)">✏️</button>
+                  <button class="edit" (click)="deletedocente(x)">❌</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
       <div class="pagination">
         <span>Mostrando {{filteredDocentes.length}} de {{filteredList.length}} registros</span>
         <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>

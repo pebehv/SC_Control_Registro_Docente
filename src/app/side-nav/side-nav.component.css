@@ -1,6 +1,6 @@
 .sidenav {
     position: fixed;
-    width: 15%;
+    width: 11%;
     height: 95vh;
     background-color: #202f5b;
     color: white;
@@ -37,7 +37,7 @@
   .nav-list li a {
     display: flex;
     align-items: center;
-    padding: 1rem 1.5rem;
+    padding: 13px;
     color: white;
     text-decoration: none;
     transition: background-color 0.3s;
@@ -63,7 +63,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 0.75rem 1rem;
+    padding: 5px;
     background: none;
     border: none;
     color: white;

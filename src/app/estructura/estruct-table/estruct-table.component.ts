@@ -23,6 +23,9 @@ totalPages: number = 7;
   currentPage: number = 1; // Página actual
   allFilters: any = {}; // Objeto para guardar los valores de los filtros
 
+    @Output()
+  eventoParaElPadre: EventEmitter<string> = new EventEmitter<string>();
+
   constructor(
     private docenteService: DocenteService,
     private excelService: ExcelService,
@@ -300,6 +303,10 @@ totalPages: number = 7;
   }
 
 
+notificarCrearDocente() {
+    // 3. Emitir el evento (opcionalmente puedes enviar datos)
+    this.eventoParaElPadre.emit();
+  }
 
 
   exportarDocentes(): void {

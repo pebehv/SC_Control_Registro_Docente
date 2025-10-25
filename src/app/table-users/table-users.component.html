@@ -1,4 +1,14 @@
+<div class="logout">
+  
+    <button class="btn btn-success register" (click)="notificarCrearDocente()">
+        Registrar
+    </button>
+
+</div>
 <div class="table-container">
+  <div class="table-scroll">
+
+  
     <table>
         <thead>
           <tr>
@@ -18,7 +28,8 @@
             <td><button class="edit" (click)="editarUsuario(usuario)">✏️</button></td>
           </tr>
         </tbody>
-      </table>
+    </table>
+  </div>  
       
       <div class="pagination">
         <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>

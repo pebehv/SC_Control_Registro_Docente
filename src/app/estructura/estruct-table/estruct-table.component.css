@@ -91,21 +91,36 @@ input{
 }
 
 
+
+.logout {
+    border-bottom: 1px solid #ccc;
+    justify-content: right;
+    display: flex;
+    padding: 10px;
+}
+
   .logout button {
-    width: 13%;
+
     display: flex;
     align-items: center;
-    padding: 0.75rem 1rem;
+    padding: 8px;
     background: none;
     border: none;
     color: white;
     cursor: pointer;
-    background-color: #667A8A;
+    background-color: #ccc;
     border-radius: 10px;
     transition: background-color 0.3s;
-    margin-bottom: 2%;
   }
   
   .logout button:hover {
-    background-color: #202f5bb5;
+    background-color: #202f5b;
   }
+  
+.register {
+    margin-right: 10px;
+    background: #28bf28 !important;
+}
+.register:hover {
+    background: green !important;
+}

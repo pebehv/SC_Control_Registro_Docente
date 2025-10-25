@@ -15,6 +15,8 @@ import { ExcelService } from '../../service/excel.service';
 export class DocenteTableComponent {
     
   totalPages: number = 7;
+  @Output()
+  eventoParaElPadre: EventEmitter<string> = new EventEmitter<string>();
 
   @Input() searchTerm: string = ''; // Recibe el término de búsqueda
   docente: IDocente[] = []
@@ -282,7 +284,10 @@ export class DocenteTableComponent {
   }
 
 
-
+notificarCrearDocente() {
+    // 3. Emitir el evento (opcionalmente puedes enviar datos)
+    this.eventoParaElPadre.emit();
+  }
 
   exportarDocentes(): void {
     // Llama al servicio con tus datos y el nombre deseado para el archivo

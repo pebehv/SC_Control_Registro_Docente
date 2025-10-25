@@ -17,6 +17,8 @@ export class PnfTableComponent {
   @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
   @Output() onSelectedDelete: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output()
+  eventoParaElPadre: EventEmitter<string> = new EventEmitter<string>();
 
   itemsPerPage: number = 10; // Número de elementos por página
   currentPage: number = 1; // Página actual
@@ -121,5 +123,10 @@ export class PnfTableComponent {
   onRowSelectDelete(event: any): void {
     console.log("onRowSelect", event)
     this.onSelectedDelete.next(event);
+  }
+  
+  notificarCrearDocente() {
+    // 3. Emitir el evento (opcionalmente puedes enviar datos)
+    this.eventoParaElPadre.emit();
   }
 }

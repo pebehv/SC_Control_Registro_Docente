@@ -3,7 +3,7 @@
     <app-sidenav></app-sidenav>
     <div class="case-main-content">
     
-        <div class="case-main-header" *ngIf="!showAddDocente" style="    margin: 3% auto;">
+        <div class="case-main-header" *ngIf="!showAddDocente" >
             <h1>Estructura</h1>
     
             <!--div class="buscar" >
@@ -12,17 +12,17 @@
                   Registrar Docente
                 </button>
                
+                <button class="add-case" (click)="showAddDocenteForm()">
+                    Registrar
+                </button>
               </div-->
-              <button class="add-case" (click)="showAddDocenteForm()">
-                  Registrar
-              </button>
         </div>
 
               
               
              
-              <div *ngIf="!showAddDocente">
-                <app-estruct-table (onSelected)="ondataSelected($event) "></app-estruct-table>
+              <div *ngIf="!showAddDocente" class="table-container_">
+                <app-estruct-table (onSelected)="ondataSelected($event) "  (eventoParaElPadre)="showAddDocenteForm()"></app-estruct-table>
               </div>
               
               <div *ngIf="showAddDocente" >

@@ -12,13 +12,25 @@ background-color: #F1EFEF; }
 /* Estilos generales de la tabla */
 
 .table-container{
-    width: 100%;
-    padding: 20px;
+    width: 97%;
+    padding: 13px;
     background-color: #fff;
     border-radius: 10PX;
-    height: 500100%px;
+    height: 470px;
 }
 
+.table-scroll{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    border: 1px solid #ccc;
+}
+
+.table-container_{
+  background-color: #fff;
+  width: 100%;
+  border-radius: 10px;
+}
 table {
     width: 100%;
     border-collapse: collapse;
@@ -30,7 +42,7 @@ table {
   th {
     background-color: #202f5b; /* Color de fondo verde */
     color: white; /* Texto en blanco */
-    padding: 12px 15px;
+    padding: 3px 15px;
     text-align: left;
     font-weight: bold;
     border-bottom: 2px solid #ddd;
@@ -38,7 +50,7 @@ table {
   
   /* Estilos para las celdas del cuerpo */
   td {
-    padding: 8px;
+    padding: 3px;
     border-bottom: 1px solid #ddd;
     color: #333; /* Color de texto oscuro */
     white-space: nowrap;
@@ -78,7 +90,7 @@ table {
   }
 
   .pagination {
-    margin-top: 20px;
+    margin-top: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,7 +122,8 @@ table {
   .user-main-container, .case-main-container{
     display: flex;
     flex-direction: row;
-    
+    position: fixed;
+    width: 100%;
 }
 
 
@@ -132,10 +145,11 @@ table {
 .archivo-main-header{
   margin-bottom: 20px;
  
- 
- 
 }
 
+.case-main-header{
+  margin: 20px 0px;  
+}
 .registrar-archivo{
   display: flex;
   justify-content: space-between;
@@ -146,8 +160,9 @@ table {
   margin-top: -10px;
 }
 .user-main-content, .case-main-content{
-margin-left: 18%;
-margin-top: 20px;
+margin-left: 13%;
+/*margin-top: 20px;*/
+width: 85%;
 }
 
 .case-main-content h1{
@@ -315,7 +330,7 @@ textarea {
 }
 
 .table-container{
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .arrow{
