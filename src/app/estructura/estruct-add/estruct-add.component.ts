@@ -335,19 +335,7 @@ export class EstructAddComponent {
         // Hubo un error al guardar el registro
         console.error('Error al guardar:', err);
       }
-    });
-    /*this.docenteService.insertarDocente(
-      st, docente, carga_acad,trayecto,sede,profesion,estado
-    ).subscribe((valu:any)=>{
-      console.log('se ingreso el docente insertarDocente ' , valu )
-      /*if(this.img_bool){
-        this.insertarImg(docente)
-      }*
-
-      this.onGoBack();
-      this.cdr.detectChanges();
-    })*/
-   
+    }); 
   }
   insertPNFsDoc(docente:number ){
       // Llama al servicio e inserta los datos
@@ -355,27 +343,12 @@ export class EstructAddComponent {
       next: (response) => {
         // El registro fue guardado exitosamente
         console.log('insertPNFsDoc guardado :', response);
-       
-        //this.onGoBack();
-       // this.cdr.detectChanges();
       },
       error: (err) => {
         // Hubo un error al guardar el registro
         console.error('Error al guardar:', err);
       }
-    });
-    /*this.docenteService.insertarDocente(
-      st, docente, carga_acad,trayecto,sede,profesion,estado
-    ).subscribe((valu:any)=>{
-      console.log('se ingreso el docente insertarDocente ' , valu )
-      /*if(this.img_bool){
-        this.insertarImg(docente)
-      }*
-
-      this.onGoBack();
-      this.cdr.detectChanges();
-    })*/
-   
+    });   
   }
   
   onItemSelect(item: any) {
@@ -414,9 +387,7 @@ export class EstructAddComponent {
           filetype: file.type,
           value: encodeURIComponent((reader.result as string).split(',')[1])
         };
-      //console.log('image', imageFile)
       
-      //this.getImages(imageFile)
       this.getImages('', 'image/png', this.imageFile.value)
       }
     }
@@ -445,7 +416,6 @@ export class EstructAddComponent {
          this.getImages(value.nombre_imagen, value.tipo_mime, value.imagen_data);
        }
       })
-
   }
 
   getImages(nombre_imagen: string, tipo_mime: string, imagen_data:string) {

@@ -3,11 +3,7 @@
 </nav>
 
 <div class="user-form-container">
-    
-  
     <form [formGroup]="valForm"    (ngSubmit)="onSubmit()">
-
-      
         <div class="form-grid2">
           <!-- Column 1 -->
           <div class="form-column">
@@ -25,7 +21,7 @@
 
 
         <div class="form-group">
-          <label for="cedula">Cedula *</label>
+          <label for="cedula">Cedula </label>
           <input
             type="text"
             id="cedula"
@@ -62,25 +58,13 @@
           />
         </div>
         <div class="form-group">
-          <label for="correo">Correo *</label>
+          <label for="correo">Correo </label>
           <input
             type="text"
             id="correo"
             
             name="correo"
             formControlName="correo"
-            required
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="rol">Rol *</label>
-          <input
-            type="text"
-            id="rol"
-            
-            name="rol"
-            formControlName="rol"
             required
           />
         </div>
@@ -96,84 +80,10 @@
             required
           />
         </div>
-
-
       </div>
     </div>
     
-  
-      <!--div class="form-row">
-        <div class="form-group">
-          <label for="cedula">Cédula *</label>
-          <input
-            type="text"
-            id="cedula"
-            [(ngModel)]="user.cedula"
-            name="cedula"
-            required
-          />
-        </div>
-  
-        <div class="form-group">
-          <label for="telefono">Teléfono *</label>
-          <input
-            type="text"
-            id="telefono"
-            [(ngModel)]="user.telefono"
-            name="telefono"
-            required
-          />
-        </div>
-      </div>
-  
-      <div class="form-row">
-        <div class="form-group">
-          <label for="correo">Correo *</label>
-          <input
-            type="email"
-            id="correo"
-            [(ngModel)]="user.correo"
-            name="correo"
-            required
-          />
-        </div>
-  
-        <div class="form-group">
-          <label for="rol">Rol *</label>
-          <input
-            type="text"
-            id="rol"
-            [(ngModel)]="user.rol"
-            name="rol"
-            required
-          />
-        </div>
-      </div>
-  
-      <div class="form-row">
-        <div class="form-group">
-          <label for="contrasena">Contraseña *</label>
-          <input
-            type="password"
-            id="contrasena"
-            [(ngModel)]="user.contrasena"
-            name="contrasena"
-            required
-          />
-        </div>
-  
-        <div class="form-group">
-          <label for="username">Nombre de usuario *</label>
-          <input
-            type="text"
-            id="username"
-            [(ngModel)]="user.username"
-            name="username"
-            required
-          />
-        </div>
-      </div>
-  -->
+
       <div class="button-group-user">
         <button type="submit" [disabled]="valForm.invalid " class="btn-primary"
         >Guardar</button>

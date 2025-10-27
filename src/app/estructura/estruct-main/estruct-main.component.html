@@ -1,45 +1,17 @@
 <div class="case-main-container">
-
     <app-sidenav></app-sidenav>
     <div class="case-main-content">
     
         <div class="case-main-header" *ngIf="!showAddDocente" >
             <h1>Estructura</h1>
-    
-            <!--div class="buscar" >
-                <app-search></app-search>
-                <button class="add-case" (click)="showAddDocenteForm()">
-                  Registrar Docente
-                </button>
-               
-                <button class="add-case" (click)="showAddDocenteForm()">
-                    Registrar
-                </button>
-              </div-->
         </div>
-
-              
-              
-             
-              <div *ngIf="!showAddDocente" class="table-container_">
-                <app-estruct-table (onSelected)="ondataSelected($event) "  (eventoParaElPadre)="showAddDocenteForm()"></app-estruct-table>
-              </div>
-              
-              <div *ngIf="showAddDocente" >
-                <app-estruct-add (goBack)="hideAddDocenteForm()" [docenteSelected]="dataSelected"></app-estruct-add>
-              </div>
-              
-              <!--
-                
-              <div *ngIf="showAddCase" >
-                <app-form-case (goBack)="hideAddUserForm()"
-                  [usuarioSelected]="usuarioSelected" 
-                ></app-form-case>
-
-                [otroComponente]="este componente
-              </div-->
-            
-    
+          <div *ngIf="!showAddDocente" class="table-container_">
+            <app-estruct-table (onSelected)="ondataSelected($event) "  (eventoParaElPadre)="showAddDocenteForm()"></app-estruct-table>
+          </div>
+          
+          <div *ngIf="showAddDocente" >
+            <app-estruct-add (goBack)="hideAddDocenteForm()" [docenteSelected]="dataSelected"></app-estruct-add>
+          </div>
     </div>
     
 </div>

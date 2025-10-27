@@ -12,7 +12,7 @@ import { UsuarioBdService } from './service/usuario-bd.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'SCI';
+  title = 'Sistema de Control de Registro de Docente';
   usuarios: any[] = [];
   constructor(
     private usuarioBdService: UsuarioBdService,

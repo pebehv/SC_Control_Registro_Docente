@@ -36,18 +36,6 @@ export class DocenteAddComponent {
     )
     {this.loadForm();}
     ngOnInit() {
-    /*
-    this.dropdownList  =  [ 
-      {  item_id : 1 ,  item_text : 'Mumbai'  } , 
-      {  item_id : 2 ,  item_text : 'Bangaluru'  } , 
-      {  item_id : 3 ,  item_text : 'Pune'  } , 
-      {  item_id : 4 ,  item_text : 'Navsari'  } , 
-      {  item_id : 5 ,  item_text : 'Nueva Delhi'  } 
-    ] ; 
-    this.selectedItems  =  [ 
-      {  item_id : 3 ,  item_text : 'Pune'  } , 
-      {  item_id : 4 ,  item_text : 'Navsari'  } 
-    ] ; */
     this.dropdownSettings   =  { 
       singleSelection: false,
       idField: 'id',
@@ -68,9 +56,6 @@ export class DocenteAddComponent {
         this.getPNF();
         
       }
-      //console.log("AddUserComponent", this.docenteSelected)
-    
-    
     }
     
     loadForm(): void {
@@ -136,24 +121,15 @@ export class DocenteAddComponent {
     //console.log(" consultarPNFDoc")
     this.pnfService.consultarPNFDoc(docente  ).subscribe({
       next: (response) => {
-        // El registro fue guardado exitosamente
-        //this.mensaje = `¡Docente guardado con ID: ${response}!`;
-  
-
          this.pnfSelected.push= response.pnf.map((x: any) => {
            const elem = this.pnf.find((element) =>{ 
              element.id == x['pnf']
- 
            });
            return this.pnf.find((element) => element.id == x['pnf']);    
          })
-
-
-        
       },
       error: (err) => {
-        // Hubo un error al guardar el registro
-        //this.mensaje = `Error al guardar: ${err}`;
+        
         console.error('Error consultarPNFDoc:', err);
       }
     });
@@ -163,20 +139,12 @@ export class DocenteAddComponent {
     //console.log(" deletePNFDoc")
     this.pnfService.deletePNFDoc(docente  ).subscribe({
       next: (response) => {
-        // El registro fue guardado exitosamente
-        //this.mensaje = `¡Docente guardado con ID: ${response}!`;
-  
-
          this.pnfSelected.push= response.pnf.map((x: any) => {
            const elem = this.pnf.find((element) =>{ 
              element.id == x['pnf']
- 
            });
            return this.pnf.find((element) => element.id == x['pnf']);    
          })
-
-
-        
       },
       error: (err) => {
         // Hubo un error al guardar el registro
@@ -277,27 +245,6 @@ export class DocenteAddComponent {
         console.error('Error al guardar:', err);
       }
     });
-      /*this.docenteService.insertarPersona(
-        0, 
-        this.valForm.value['nombre'],
-        'no',
-        this.valForm.value['ci'],
-        this.valForm.value['email'],
-        this.valForm.value['tlf'],
-        this.valForm.value['fechaNac'],
-        this.valForm.value['sexo'],
-     
-      ).subscribe((value: number)=>{
-        console.log('el subscribe inserte a la persona ', value)
-
-        this.insertarDocente(0,value, 
-          this.valForm.value['carga_acad'],
-          this.valForm.value['trayecto'],
-          this.valForm.value['sede'],
-          this.valForm.value['profesion'],
-          this.valForm.value['estado']  )        
-      })
-      */
     }
   }
 
@@ -333,18 +280,6 @@ export class DocenteAddComponent {
         console.error('Error al guardar:', err);
       }
     });
-    /*this.docenteService.insertarDocente(
-      st, docente, carga_acad,trayecto,sede,profesion,estado
-    ).subscribe((valu:any)=>{
-      console.log('se ingreso el docente insertarDocente ' , valu )
-      /*if(this.img_bool){
-        this.insertarImg(docente)
-      }*
-
-      this.onGoBack();
-      this.cdr.detectChanges();
-    })*/
-   
   }
   insertPNFsDoc(docente:number ){
       // Llama al servicio e inserta los datos
@@ -352,27 +287,12 @@ export class DocenteAddComponent {
       next: (response) => {
         // El registro fue guardado exitosamente
         console.log('insertPNFsDoc guardado :', response);
-       
-        //this.onGoBack();
-       // this.cdr.detectChanges();
-      },
+             },
       error: (err) => {
         // Hubo un error al guardar el registro
         console.error('Error al guardar:', err);
       }
     });
-    /*this.docenteService.insertarDocente(
-      st, docente, carga_acad,trayecto,sede,profesion,estado
-    ).subscribe((valu:any)=>{
-      console.log('se ingreso el docente insertarDocente ' , valu )
-      /*if(this.img_bool){
-        this.insertarImg(docente)
-      }*
-
-      this.onGoBack();
-      this.cdr.detectChanges();
-    })*/
-   
   }
   
   onItemSelect(item: any) {
@@ -452,28 +372,6 @@ export class DocenteAddComponent {
     this.img = dataUrl
     this.tipo_mime =  mimeType;
     this.cdr.detectChanges()
-    /*return this.img.map((attch: any) => {
-      return {
-        src: attch.url,
-        caption: attch.caption || this.img.text,
-        thumb: attch.url,
-        downloadUrl: attch.url
-      };
-    });*/
+    
   }
-  /*getImages(imageFile:any) {
-    const decodedString = decodeURIComponent(imageFile.value);
-    const mimeType = 'image/png'; // You'd need to know the original MIME type
-    const dataUrl = `data:${mimeType};base64,${imageFile.value}`;
-    this.img = dataUrl
-    this.cdr.detectChanges()
-    /*return this.img.map((attch: any) => {
-      return {
-        src: attch.url,
-        caption: attch.caption || this.img.text,
-        thumb: attch.url,
-        downloadUrl: attch.url
-      };
-    });
-  */
 }

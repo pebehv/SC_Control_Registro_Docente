@@ -5,39 +5,13 @@
     
         <div class="case-main-header" *ngIf="!showAddDocente" >
             <h1>Docentes</h1>
-    
-            <!--div class="buscar" >
-                <app-search></app-search>
-                <button class="add-case" (click)="showAddDocenteForm()">
-                  Registrar Docente
-                </button>
-               
-                <button class="add-case" (click)="showAddDocenteForm()">
-                    Registrar Docente
-                </button>
-              </div-->
         </div>
-
-              
-              
-             
-              <div *ngIf="!showAddDocente" class="table-container_">
-                <app-docente-table (onSelected)="ondataSelected($event) " (eventoParaElPadre)="showAddDocenteForm()"></app-docente-table>
-              </div>
-              <div *ngIf="showAddDocente" >
-                <app-docente-add (goBack)="hideAddDocenteForm()" [docenteSelected]="dataSelected"></app-docente-add>
-              </div>
-             
-                <!--
-              <div *ngIf="showAddCase" >
-                <app-form-case (goBack)="hideAddUserForm()"
-                  [usuarioSelected]="usuarioSelected" 
-                ></app-form-case>
-
-                [otroComponente]="este componente
-              </div-->
-            
-    
-    </div>
-    
+     
+          <div *ngIf="!showAddDocente" class="table-container_">
+            <app-docente-table (onSelected)="ondataSelected($event) " (eventoParaElPadre)="showAddDocenteForm()"></app-docente-table>
+          </div>
+          <div *ngIf="showAddDocente" >
+            <app-docente-add (goBack)="hideAddDocenteForm()" [docenteSelected]="dataSelected"></app-docente-add>
+          </div>   
+    </div>    
 </div>

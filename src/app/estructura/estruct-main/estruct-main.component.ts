@@ -23,11 +23,6 @@ export class EstructMainComponent {
     //
     console.log("click");
   }
-  // Función para manejar la búsqueda (si es necesario)
-  /*onSearch(query: string) {
-    console.log('Búsqueda:', query);
-    // Aquí puedes agregar la lógica de búsqueda
-  }*/
 
   // Función para volver a la tabla
   hideAddDocenteForm() {
@@ -36,9 +31,7 @@ export class EstructMainComponent {
     this.cdr.detectChanges();
   }
 
-  ondataSelected($event: any){
-    //console.log('Usuario seleccionado:', $event);
-   
+  ondataSelected($event: any){   
     this.showAddDocente = true;
     this.dataSelected = $event;
     this.cdr.detectChanges();

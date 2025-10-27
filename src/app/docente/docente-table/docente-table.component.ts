@@ -41,11 +41,11 @@ export class DocenteTableComponent {
   }
   refresh(){
 
-    console.log("refresh DocenteTableComponent")
+    //console.log("refresh DocenteTableComponent")
     this.docenteService.consultarDocente((rows:any[]) => {
       this.docente = rows;
       this.applyFiltersAndPaginate();
-      console.log(this.docente);
+      //console.log(this.docente);
       
       this.calcularTotalPaginas();
       this.cdr.detectChanges();
@@ -53,12 +53,12 @@ export class DocenteTableComponent {
   }
   
   onRowSelect(event: any): void {
-    console.log("onRowSelect", event)
+    //console.log("onRowSelect", event)
     this.onSelected.next(event);
   }
   editarDocente(Docente: any) {
     //this.Docentes = this.Docentes.filter(u => u.cedula !== Docente.cedula);
-    console.log("Editar user");
+    //console.log("Editar user");
     this.onRowSelect(Docente);
   }
 
@@ -93,9 +93,9 @@ export class DocenteTableComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
 
-    console.log('getEntidadesPaginaActual',this.filteredDocentes, startIndex, endIndex, this.filteredDocentes.slice(startIndex, endIndex))
+    //console.log('getEntidadesPaginaActual',this.filteredDocentes, startIndex, endIndex, this.filteredDocentes.slice(startIndex, endIndex))
     this.filteredDocentes= this.filteredList.slice(startIndex, endIndex);
-    console.log('getEntidadesPaginaActual',this.filteredDocentes, startIndex, endIndex, this.filteredDocentes.slice(startIndex, endIndex))
+    //console.log('getEntidadesPaginaActual',this.filteredDocentes, startIndex, endIndex, this.filteredDocentes.slice(startIndex, endIndex))
     
     return this.filteredDocentes.slice(startIndex, endIndex);
   } 
@@ -126,7 +126,7 @@ export class DocenteTableComponent {
   calculoEdad(fecha: any, id: number, name : string){
     if(fecha){
   
-      console.log("Caculando edad", fecha, id,name )
+      //console.log("Caculando edad", fecha, id,name )
       const fechaActual = new Date();
       const fechaInicio = new Date(fecha);
       
@@ -199,12 +199,12 @@ export class DocenteTableComponent {
     const end = start + this.itemsPerPage;
     this.filteredDocentes = filteredList.slice(start, end);
     this.filteredList = filteredList;
-    console.log("applyFiltersAndPaginate filteredDocentes", this.filteredDocentes)
+    //console.log("applyFiltersAndPaginate filteredDocentes", this.filteredDocentes)
   }
 
   deletedocente(docente: any) {
     //this.docentes = this.docentes.filter(u => u.cedula !== docente.cedula);
-    console.log("onRowSelectDelete user", docente);
+    //console.log("onRowSelectDelete user", docente);
     const respuesta = confirm("¿Estás seguro de que quieres realizar esta acción?");
       
       if (respuesta) {
@@ -236,7 +236,7 @@ export class DocenteTableComponent {
      this.docenteService.deletePersona(docente).subscribe({
         next: (response) => {
           // El registro fue guardado exitosamente
-          console.log('deletePersona con ID:', response);
+          //console.log('deletePersona con ID:', response);
           this.refresh();
           this.cdr.detectChanges();
         },
@@ -248,11 +248,11 @@ export class DocenteTableComponent {
   }
   deleteIMG(docente: any) {
     //this.docentes = this.docentes.filter(u => u.cedula !== docente.cedula);
-    console.log("deleteIMG user", docente);
+    //console.log("deleteIMG user", docente);
      this.docenteService.deleteIMG(docente).subscribe({
         next: (response) => {
           // El registro fue guardado exitosamente
-          console.log('deleteIMG con ID:', response);
+          //console.log('deleteIMG con ID:', response);
           this.refresh();
           this.cdr.detectChanges();
         },
@@ -291,7 +291,7 @@ notificarCrearDocente() {
 
   exportarDocentes(): void {
     // Llama al servicio con tus datos y el nombre deseado para el archivo
-    console.log("exportarDocentes", this.docente);
+    //console.log("exportarDocentes", this.docente);
     this.excelService.exportAsExcelFile(this.generarDataExportar(), 'Lista_Docentes');
   }
 }

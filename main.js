@@ -24,9 +24,9 @@ app.on('ready', () => {
     //mainWindow.setMenu(null); // Esta linea es para deshabilitar el inspeccionar , osea , la consola y eso de la web
 
     // Inicializar base de datos
-    const dbPath = path.join(__dirname, 'database.db');// forma local
+    //const dbPath = path.join(__dirname, 'database.db');// forma local
     //const dbPath = path.join(app.getPath('userData'), 'database.db');
-    //const dbPath = path.join(process.resourcesPath, 'database.db');//para geenrar el ejecutable
+    const dbPath = path.join(process.resourcesPath, 'database.db');//para geenrar el ejecutable
     /*const ffmpegPath = path.join(process.resourcesPath, 'ffmpeg.dll');
     if (!fs.existsSync(ffmpegPath)) {
         console.error('❌ ffmpeg.dll no encontrado en:', ffmpegPath);
@@ -172,7 +172,7 @@ ipcMain.on('obtener-rol', (event, user) => {
 // Manejar la inserción de usuarios
 ipcMain.on('insertar-usuario', (event, nombre,apellido,ci, email, user, password, rol) => {
     console.log('insertar-usuario', nombre,apellido,ci, email, user, password, rol)
-    db.run(`INSERT INTO usuario (nombre,apellido,cedula, correo, usuario, contrasena, rol) VALUES (?, ?, ?, ?,?, ?,?)`, [nombre,apellido,ci, email, user, password, rol], function(err) {
+    db.run(`INSERT INTO usuario (nombre,apellido,cedula, correo, usuario, contrasena, rol) VALUES (?, ?, ?, ?,?, ?,?)`, [nombre,apellido,ci, email, user, password, 1], function(err) {
         if (err) {
             event.reply('usuario-insertado', { error: err.message });
         } else {
@@ -204,8 +204,9 @@ ipcMain.on('buscar-user', (event, user) => {
     });
 });
 ipcMain.on('actualizar-usuario', (event, { id, nombre, apellido,ci, email,user, password, rol }) => {
+    console.log('Actualizando usuario con ID:', id,nombre, apellido,ci, email,user, password, rol);
     db.run(`UPDATE usuario SET nombre = ?, apellido = ?, cedula = ?, correo = ?,usuario = ?, contrasena = ?, rol = ? WHERE id = ?`, 
-        [nombre, apellido,ci, email,user, password, rol, id], function(err) {
+        [nombre, apellido,ci, email,user, password, 1, id], function(err) {
         if (err) {
             event.reply('usuario-actualizado', { error: err.message });
         } else {
